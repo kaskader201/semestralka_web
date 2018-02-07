@@ -10,9 +10,16 @@ abstract class Controller
     //nemámá probehnout render ?
     public $dontRender = false;
     //seo
-    protected $seoHeader = array('title' => '', 'keywords' => '', 'description' => '');
+    protected $seoHeader = ['title' => '', 'keywords' => '', 'description' => ''];
+    
+    protected $additionallyJS = [];
     
     // provadí ošetření všech vstupních proměnných
+    
+    /**
+     * @param null $item
+     * @return array|null|string
+     */
     private function escapeString($item = null)
     {
         if ($item === null) {
@@ -33,7 +40,7 @@ abstract class Controller
         
     }
     
-    abstract public function controlProcess($urlParameters);
+    abstract public function controlProcess(array $urlParameters);
     
     public function renderView()
     {
@@ -46,11 +53,38 @@ abstract class Controller
         }
     }
     
-    // Přesměruje na dané URL
-    public function redirect($url = '', $code = 301)
+    //
+    
+    /**
+     * Přesměruje na dané URL
+     * @param string $url
+     * @param int $code
+     * @return void
+     */
+    public function redirect(string $url = '', int $code = 301)
     {
         header('Location: /' . $url, true, $code);
         header('Connection: close');
         exit;
+    }
+    
+    /**
+     * Přidá na konec požadované JS scripty
+     * @param array $js
+     * @return void
+     */
+    public function setAdditionallyJS(array $js)
+    {
+        foreach ($js as $item){
+            $this->additionallyJS[] = $item;
+        }
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAdditionallyJS(): array
+    {
+        return $this->additionallyJS;
     }
 }

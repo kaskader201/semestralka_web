@@ -3,7 +3,7 @@
 
 class Error404Controller extends Controller
 {
-    public function controlProcess($urlParameters)
+    public function controlProcess(array $urlParameters)
     {
     
     }

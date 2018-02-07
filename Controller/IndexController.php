@@ -3,8 +3,8 @@
 
 class IndexController extends Controller
 {
-    public function controlProcess($urlParameters)
+    public function controlProcess(array $urlParameters)
     {
-    
+        $this->setAdditionallyJS(['sss','cccc','sadasd']);
     }
 }

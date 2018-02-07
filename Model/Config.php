@@ -28,7 +28,7 @@ Class Config
         return self::$config;
     }
     public static function getDbSettingDevel(){
-        return self::$config['dbSetting']['dev'];
+        return (object) self::$config['dbSetting']['dev'];
     }
     public static function getDbSettingProduction(){
         return self::$config['dbSetting']['production'];
@@ -36,15 +36,7 @@ Class Config
     public static function getSeo(){
         return (object) self::$config['seo'];
     }
-   /* public static function getSeoTitle(){
-        return self::$config['seo']['title'];
-    }
-    public static function getSeoKeywords(){
-        return self::$config['seo']['keywords'];
-    }
-    public static function getSeoDescription(){
-        return self::$config['seo']['description'];
-    }*/
+
 }
 
 

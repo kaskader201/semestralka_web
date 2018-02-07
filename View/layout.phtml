@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="<?= $baseURL ?>">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><?= $title ?></title>
+
+    
+    <link rel="stylesheet" href="<?= $baseURL ?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $baseURL ?>css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="<?= $baseURL ?>css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="<?= $baseURL ?>css/custom.css?version=<?= time() ?>">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<!-- SCRIPTS -->
+<script src="<?= $baseURL ?>js/jquery-3.3.1.min.js"></script>
+<script src="<?= $baseURL ?>js/bootstrap.min.js"></script>
+<script src="<?= $baseURL ?>js/bootstrap.bundle.min.js"></script>
+
+<!--[if lt IE 9]>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"><\/script>')</script>
+<![endif]-->
+<script src="<?= $baseUrl ?>js/maskedinput.js"></script>
+<script src="<?= $baseUrl ?>js/jquery-confirm.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<!-- todo: TOHLE DAT DO SAMOSTATNÉHO SOUBORU KDE SE BUDE POUŽÍVAT TABULKA -->
+<script>
+    $('#dataTable').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "pagingType": "full_numbers",
+        "decimal": "",
+        "language": {
+            "sEmptyTable": "Tabulka neobsahuje žádná data",
+            "sInfo": "Zobrazuji _START_ až _END_ z celkem _TOTAL_ záznamů",
+            "sInfoEmpty": "Zobrazuji 0 až 0 z 0 záznamů",
+            "sInfoFiltered": "(filtrováno z celkem _MAX_ záznamů)",
+            "sInfoPostFix": "",
+            "sInfoThousands": " ",
+            "sLengthMenu": "Zobraz záznamů _MENU_",
+            "sLoadingRecords": "Načítám...",
+            "sProcessing": "Provádím...",
+            "sSearch": "Hledat:",
+            "sZeroRecords": "Žádné záznamy nebyly nalezeny",
+            "oPaginate": {
+                "sFirst": "První",
+                "sLast": "Poslední",
+                "sNext": "Další",
+                "sPrevious": "Předchozí"
+            },
+            "oAria": {
+                "sSortAscending": ": aktivujte pro řazení sloupce vzestupně",
+                "sSortDescending": ": aktivujte pro řazení sloupce sestupně"
+            }
+
+        }
+    });
+</script>
+</body>
+
+</html>

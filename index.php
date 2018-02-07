@@ -1,4 +1,10 @@
 <?php
+//bezpečnostní prvky
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_only_cookies', true);
+ini_set('session.name', 'ASPSESSIONID');
+ini_set('expose_php', 'off');
+session_start();
 
 function autoload($file)
 {
@@ -7,16 +13,12 @@ function autoload($file)
     } elseif (preg_match('/$/', $file) && file_exists("Model/" . $file . ".php")) {
         require("Model/" . $file . ".php");
     } else {
-    
+        Logger::log()->error('nenalezen soubor: '.$file);
     }
 }
 
 spl_autoload_register("autoload");
-//bezpečnostní prvky
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', true);
-ini_set('session.name', 'ASPSESSIONID');
-ini_set('expose_php', 'off');
+
 
 //treba dat do httpd.conf nebo apache.conf :
 ini_set('TraceEnable', 'off');
@@ -30,7 +32,6 @@ header('X-Content-Type-Options: nosniff');
 header('X-XSS-Protection: 1; mode=block');
 
 
-session_start();
 
 // Nastavení interního kódování pro funkce pro práci s řetězci
 mb_internal_encoding("UTF-8");
@@ -44,17 +45,17 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 if ($_SERVER['SERVER_ADDR'] === '::1' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === 'localhost') {
     $dataForDb = Config::getDbSettingDevel();
-} else { //pripojení do db na Produkci
+} else {
     $dataForDb = Config::getDbSettingProduction();
 }
 
-Db::connect($dataForDb['dbAddress'], $dataForDb['login'], $dataForDb['password'], $dataForDb['dbName']);
+Db::connect($dataForDb->dbAddress, $dataForDb->login, $dataForDb->password, $dataForDb->dbName);
 
 
 //route
-$smerovac = new RouterController();
-$smerovac->controlProcess(array($_SERVER['REQUEST_URI']));
+$router = new RouterController();
+$router->controlProcess(array($_SERVER['REQUEST_URI']));
 
 // Vyrenderování šablony
-$smerovac->renderView();
+$router->renderView();
 
