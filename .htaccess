@@ -1,0 +1,17 @@
+Options -Indexes
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_METHOD} ^TRACE
+RewriteRule ^ - [F]
+# front controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^/admin/.*$ /admin/index.php [L]
+RewriteRule !\.(pdf|txt|xml|js|ico|gif|jpg|png|css|rar|zip|tar\.gz)$ index.php [L]
+
+AddType application/x-httpd-php .php .phtml
+
+Order Deny,Allow
+Allow from  93.153.80.167
