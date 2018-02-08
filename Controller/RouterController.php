@@ -44,6 +44,7 @@ class RouterController extends Controller
         
         // Volání controlleru
         $this->instanceOfController->controlProcess($url);
+        $this->renderData['body'] = $this->instanceOfController->renderView();
         $this->renderData['baseURL'] = 'http://localhost/';
         $this->renderData['additionalyJs'] = $this->instanceOfController->getAdditionallyJS();
         $this->renderData['title'] = (!empty($this->instanceOfController->seoHeader['title']) ? $this->instanceOfController->seoHeader['title'] : Config::getSeo()->title);
