@@ -4,7 +4,7 @@ CREATE TABLE USERS (
   password  VARCHAR(280) NOT NULL,
   salt  VARCHAR(280) NOT NULL,
   token  VARCHAR(280),
-  permission  INT(6) NOT NULL,
+  permission  INT(6) NOT NULL DEFAULT '1',
   firstname VARCHAR(30) NOT NULL,
   lastname VARCHAR(30) NOT NULL,
   reg_date TIMESTAMP,
