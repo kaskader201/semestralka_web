@@ -7,7 +7,7 @@ namespace Semestralka;
  * Time: 14:09
  */
 
-class Goods
+class Items
 {
     private $id;
     private $code;
