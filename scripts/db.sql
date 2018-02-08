@@ -3,7 +3,7 @@ CREATE TABLE USERS (
   email VARCHAR(70) NOT NULL UNIQUE,
   password  VARCHAR(280) NOT NULL,
   salt  VARCHAR(280) NOT NULL,
-  token  VARCHAR(280),
+  token  VARCHAR(255),
   permission  INT(6) NOT NULL DEFAULT '1',
   firstname VARCHAR(30) NOT NULL,
   lastname VARCHAR(30) NOT NULL,
@@ -15,3 +15,7 @@ CREATE TABLE USERS (
 );
 CREATE INDEX user_email
   ON USERS (email);
+CREATE INDEX user_token
+  ON USERS (token);
+CREATE INDEX user_id
+  ON USERS (id);
