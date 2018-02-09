@@ -42,9 +42,8 @@ class RouterController extends Controller
             $this->redirect('error-404');
         }
         
-        // Volání controlleru
+        // Volání vykonání controlleru
         $this->instanceOfController->controlProcess($url);
-      //  $this->renderData['body'] = $this->instanceOfController->renderView();
         $this->renderData['block'] = $this->instanceOfController->view.'.latte';
         foreach ($this->instanceOfController->renderData as $key => $value){
             $this->renderData[$key] = $value;

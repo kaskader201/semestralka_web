@@ -3,14 +3,14 @@
 Class Config implements iConfig
 {
     private static $config = [
-        'urlAdrress'=>[
+        'urlAdrress' => [
             self::DEV => 'http://localhost/',
-            self::PRODUCTION =>'http://wa.toad.cz/~jelinda6/'
+            self::PRODUCTION => 'http://wa.toad.cz/~jelinda6/'
         ],
         'seo' => [
-            'title'=>'Semestralni projekt',
+            'title' => 'Semestralni projekt',
             'keywords' => 'semstralni projekt, ČVUT, FEL',
-            'description' =>'Stráka semestrálního projetku'
+            'description' => 'Stráka semestrálního projetku'
         ],
         'dbSetting' => [
             self::DEV => [
@@ -28,30 +28,39 @@ Class Config implements iConfig
         
         ]
     ];
-    public static function getFullConfig(){
+    
+    public static function getFullConfig()
+    {
         return self::$config;
     }
-    public static function getDbSettingDevel(){
+    
+    public static function getDbSettingDevel()
+    {
         return (object) self::$config['dbSetting'][self::DEV];
     }
-    public static function getDbSettingProduction(){
+    
+    public static function getDbSettingProduction()
+    {
         return (object) self::$config['dbSetting'][self::PRODUCTION];
     }
-    public static function getSeo(){
+    
+    public static function getSeo()
+    {
         return (object) self::$config['seo'];
     }
-    public static function getBaseUrl(){
+    
+    public static function getBaseUrl()
+    {
         if ($_SERVER['SERVER_ADDR'] === '::1' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === 'localhost') {
-            if($_SERVER['SERVER_PORT'] ===80){
+            if ((int) $_SERVER['SERVER_PORT'] === 80) {
                 return self::$config['urlAdrress'][self::DEV];
-            } else {
-                return sprintf('http://localhost:%s/',$_SERVER['SERVER_PORT']);
             }
+            return sprintf('http://localhost:%s/', $_SERVER['SERVER_PORT']);
             
         }
         return self::$config['urlAdrress'][self::PRODUCTION];
     }
-
+    
 }
 
 
