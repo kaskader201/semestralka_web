@@ -1,5 +1,5 @@
 <?php
-namespace Semestralka;
+
 /**
  * Objekt Zboží
  * User: Jelin
@@ -7,7 +7,7 @@ namespace Semestralka;
  * Time: 14:09
  */
 
-class Items
+class Item implements iItem
 {
     private $id;
     private $code;
@@ -16,16 +16,19 @@ class Items
     private $stock;
     private $new;
     private $producer;
-    private $goodsService;
+    /**
+     * @var ItemService
+     */
+    private $itemService;
     
     public function __construct()
     {
-    
+        $this->itemService = new ItemService();
     }
     
     /**
      * @return mixed
-     */ 
+     */
     public function getCode()
     {
         return $this->code;
@@ -80,11 +83,13 @@ class Items
     }
     
     /**
-     * @param mixed $code
+     * @param $code
+     * @return $this
      */
     public function setCode($code)
     {
         $this->code = $code;
+        return $this;
     }
     
     /**
@@ -93,48 +98,59 @@ class Items
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
     
     /**
-     * @param mixed $name
+     * @param $name
+     * @return Item
      */
-    public function setName($name)
+    public function setName($name) :Item
     {
         $this->name = $name;
+        return $this;
     }
     
     /**
-     * @param mixed $new
+     * @param bool $new
+     * @return Item
      */
-    public function setNew($new)
+    public function setIsNew(bool $new) : Item
     {
         $this->new = $new;
+        return $this;
     }
     
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price)
+
+    public function setPrice(float $price)
     {
         $this->price = $price;
+        return $this;
     }
     
-    /**
-     * @param mixed $producer
-     */
+
     public function setProducer($producer)
     {
         $this->producer = $producer;
+        return $this;
     }
     
-    /**
-     * @param mixed $stock
-     */
+   
     public function setStock($stock)
     {
         $this->stock = $stock;
+        return $this;
     }
     
+    public function delete()
+    {
+        $this->itemService->delete($this);
+    }
+    
+    public function save()
+    {
+        $this->itemService->save($this);
+    }
     
     
 }

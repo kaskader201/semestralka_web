@@ -14,32 +14,6 @@ abstract class Controller
     
     protected $additionallyJS = [];
     
-    // provadí ošetření všech vstupních proměnných
-    
-    /**
-     * @param null $item
-     * @return array|null|string
-     */
-    /*private function escapeString($item = null)
-    {
-        if ($item === null) {
-            return null;
-        }
-        
-        if (is_string($item)) {
-            return htmlspecialchars($item, ENT_QUOTES);
-        }
-        
-        if (is_array($item)) {
-            foreach ($item as $key => $value) {
-                $item[$key] = $this->escapeString($value);
-            }
-            return $item;
-        }
-        return $item;
-        
-    }*/
-    
     /**
      * @param array $urlParameters
      * @return void
@@ -51,7 +25,7 @@ abstract class Controller
         if (!$this->dontRender) {
             if ($this->view !== '') {
                 $latte = new Latte\Engine;
-                $latte->setTempDirectory('tmp/');
+                $latte->setTempDirectory('temp/');
 /*                extract($this->escapeString($this->renderData), EXTR_OVERWRITE);
                 extract($this->renderData, EXTR_PREFIX_ALL, '');*/
                 $latte->render(dirname(__DIR__).'/View/'.$this->view.'.latte', $this->renderData);
