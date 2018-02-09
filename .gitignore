@@ -13,6 +13,8 @@
 /composer.lock
 .idea/**/tasks.xml
 .idea/dictionaries
+/temp/
+/vendor/
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
