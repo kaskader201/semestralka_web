@@ -19,4 +19,22 @@ class UserService implements iUser
     {
         return $this->userDAO->delete($user);
     }
+    
+    public function getAllUsers()
+    {
+        $users = [];
+        foreach ($this->userDAO->getAllUsers() as $dbUser) {
+            $user = (new User())
+                ->setId($dbUser['id'])
+                ->setPermission($dbUser['permission'])
+                ->setPassword($dbUser['password'])
+                ->setEmail($dbUser['email'])
+                ->setSalt($dbUser['salt'])
+                ->setToken($dbUser['token'])
+                ->setFirstname($dbUser['firstname'])
+                ->setLastname($dbUser['lastname']);
+            $users[] = $user;
+        }
+        return $users;
+    }
 }

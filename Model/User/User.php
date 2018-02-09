@@ -5,11 +5,11 @@ class User implements iUser
     /**
      * @int
      */
-    private $id;
+    public $id;
     /**
      * @string
      */
-    private $email;
+    public $email;
     /**
      * @string
      */
@@ -29,11 +29,11 @@ class User implements iUser
     /**
      * @string
      */
-    private $firstname;
+    public $firstname;
     /**
      * @string
      */
-    private $lastname;
+    public $lastname;
     
     
     /**
@@ -209,6 +209,12 @@ class User implements iUser
     
     public function save(User $user)
     {
-       return $this->userService->save($user);
+        return $this->userService->save($user);
     }
+    
+    public function __toString()
+    {
+        return sprintf('%s %s',$this->getFirstname(), $this->getLastname());
+    }
+    
 }
