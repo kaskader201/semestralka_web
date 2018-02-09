@@ -213,7 +213,7 @@ class User implements iUser
     
     public function save(User $user)
     {
-        $this->userService->save($user);
+       return $this->userService->save($user);
     }
     
     

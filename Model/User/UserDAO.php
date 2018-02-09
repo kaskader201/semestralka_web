@@ -10,9 +10,9 @@ class UserDAO implements iUser
     public function save(User $user)
     {
         if ($user->getId() === null) {
-            $this->create($user);
+            return $this->create($user);
         } else {
-            $this->update($user);
+           return $this->update($user);
         }
     }
     
