@@ -40,6 +40,17 @@ Class Config implements iConfig
     public static function getSeo(){
         return (object) self::$config['seo'];
     }
+    public static function getBaseUrl(){
+        if ($_SERVER['SERVER_ADDR'] === '::1' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === 'localhost') {
+            if($_SERVER['SERVER_PORT'] ===80){
+                return self::$config['urlAdrress'][self::DEV];
+            } else {
+                return sprintf('http://localhost:%s/',$_SERVER['SERVER_PORT']);
+            }
+            
+        }
+        return self::$config['urlAdrress'][self::PRODUCTION];
+    }
 
 }
 
