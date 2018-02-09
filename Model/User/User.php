@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Objekt Zboží
- * User: Jelin
- * Date: 22.12.2017
- * Time: 14:09
- */
-
 class User implements iUser
 {
     /**
@@ -218,6 +211,4 @@ class User implements iUser
     {
        return $this->userService->save($user);
     }
-    
-    
 }

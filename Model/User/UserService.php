@@ -17,7 +17,6 @@ class UserService implements iUser
     
     public function delete(User $user)
     {
-    
+        return $this->userDAO->delete($user);
     }
-   
 }

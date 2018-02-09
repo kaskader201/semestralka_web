@@ -1,11 +1,11 @@
 <?php
-session_start();
+
 //bezpečnostní prvky
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', true);
 ini_set('session.name', 'ASPSESSIONID');
 ini_set('expose_php', 'off');
-
+session_start();
 if (!file_exists('temp') && !mkdir('temp', 0777, true) && !is_dir('temp')) {
     throw new \RuntimeException(sprintf('Directory "%s" was not created', 'temp'));
 }

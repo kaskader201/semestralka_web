@@ -49,7 +49,7 @@ class RouterController extends Controller
         foreach ($this->instanceOfController->renderData as $key => $value){
             $this->renderData[$key] = $value;
         }
-        $this->renderData['baseURL'] = 'http://localhost/';
+        $this->renderData['baseURL'] = 'http://localhost:8888/';
         $this->renderData['additionalyJs'] = $this->instanceOfController->getAdditionallyJS();
         $this->renderData['title'] = (!empty($this->instanceOfController->seoHeader['title']) ? $this->instanceOfController->seoHeader['title'] : Config::getSeo()->title);
         $this->renderData['keywords'] = (!empty($this->instanceOfController->seoHeader['keywords']) ? $this->instanceOfController->seoHeader['keywords'] : Config::getSeo()->keywords);
