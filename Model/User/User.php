@@ -51,6 +51,8 @@ class User implements iUser
     public function __construct()
     {
         $this->setUserService(new UserService());
+        //nastavime zakladní práva
+        $this->setPermission(1);
     }
     
     /**
@@ -129,6 +131,7 @@ class User implements iUser
      */
     public function setPassword(string $password)
     {
+        //todo: možnost zde vytvářet hash hesla nebo to nechat na nekom jinem
         $this->password = $password;
         return $this;
     }
