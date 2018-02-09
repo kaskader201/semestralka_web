@@ -1,0 +1,8 @@
+{if empty($users)}
+    <h1>Nenalezen žádný uživatel</h1>
+{else}
+    <h1>Seznam uživatelů</h1>
+    {foreach $users as $user}
+        {$user->firstname} {$user->lastname} <br>
+    {/foreach}
+{/if}

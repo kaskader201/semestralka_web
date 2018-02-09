@@ -10,7 +10,7 @@ class UserDAO implements iUser
             return false;
         }
     }
-
+    
     public function save(User $user)
     {
         if ($user->getId() === null) {
@@ -19,7 +19,7 @@ class UserDAO implements iUser
             return $this->update($user);
         }
     }
-
+    
     protected function update(User $user)
     {
         $arrayUser = [
@@ -33,7 +33,7 @@ class UserDAO implements iUser
         ];
         return Db::update('users', $arrayUser, ' WHERE id = ' . $user->getId());
     }
-
+    
     protected function create(User $user)
     {
         $arrayUser = [
@@ -47,16 +47,21 @@ class UserDAO implements iUser
         ];
         return Db::insert('users', $arrayUser);
     }
-
+    
     public function getById(int $userId)
     {
         return Db::queryOne('SELECT * FROM users WHERE id = ?', array($userId));
-
+        
     }
-
+    
     public function getByEmail(string $userEmail)
     {
         return Db::queryOne('SELECT * FROM users WHERE email = ?', array($userEmail));
-
+        
+    }
+    
+    public function getAllUsers(): array
+    {
+        return Db::queryAll('SELECT * FROM users');
     }
 }
