@@ -1,3 +1,10 @@
+#pro devel
+CREATE DATABASE semestralka;
+#pro produkci
+CREATE DATABASE jelinda6;
+
+
+
 CREATE TABLE USERS (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(70) NOT NULL UNIQUE,

@@ -1,24 +1,28 @@
 <?php
 
-Class Config
+Class Config implements iConfig
 {
     private static $config = [
+        'urlAdrress'=>[
+            self::DEV => 'http://localhost/',
+            self::PRODUCTION =>'http://wa.toad.cz/~jelinda6/'
+        ],
         'seo' => [
             'title'=>'Semestralni projekt',
             'keywords' => 'semstralni projekt, ČVUT, FEL',
             'description' =>'Stráka semestrálního projetku'
         ],
         'dbSetting' => [
-            'dev' => [
+            self::DEV => [
                 'login' => 'root',
                 'password' => '',
                 'dbName' => 'semestralka',
                 'dbAddress' => 'localhost',
             ],
-            'production' => [
-                'login' => 'root',
-                'password' => '',
-                'dbName' => 'semestralka',
+            self::PRODUCTION => [
+                'login' => 'jelinda6',
+                'password' => 'webove aplikace',
+                'dbName' => 'jelinda6',
                 'dbAddress' => 'localhost',
             ],
         
@@ -28,10 +32,10 @@ Class Config
         return self::$config;
     }
     public static function getDbSettingDevel(){
-        return (object) self::$config['dbSetting']['dev'];
+        return (object) self::$config['dbSetting'][self::DEV];
     }
     public static function getDbSettingProduction(){
-        return self::$config['dbSetting']['production'];
+        return (object) self::$config['dbSetting'][self::PRODUCTION];
     }
     public static function getSeo(){
         return (object) self::$config['seo'];

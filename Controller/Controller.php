@@ -20,7 +20,7 @@ abstract class Controller
      * @param null $item
      * @return array|null|string
      */
-    private function escapeString($item = null)
+    /*private function escapeString($item = null)
     {
         if ($item === null) {
             return null;
@@ -38,9 +38,12 @@ abstract class Controller
         }
         return $item;
         
-    }
+    }*/
     
-
+    /**
+     * @param array $urlParameters
+     * @return void
+     */
     abstract public function controlProcess(array $urlParameters);
     
     public function renderView()
@@ -49,8 +52,8 @@ abstract class Controller
             if ($this->view !== '') {
                 $latte = new Latte\Engine;
                 $latte->setTempDirectory('tmp/');
-                extract($this->escapeString($this->renderData), EXTR_OVERWRITE);
-                extract($this->renderData, EXTR_PREFIX_ALL, '');
+/*                extract($this->escapeString($this->renderData), EXTR_OVERWRITE);
+                extract($this->renderData, EXTR_PREFIX_ALL, '');*/
                 $latte->render(dirname(__DIR__).'/View/'.$this->view.'.latte', $this->renderData);
                // require 'View/' . $this->view . '.phtml';
             }

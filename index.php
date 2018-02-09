@@ -45,8 +45,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 if ($_SERVER['SERVER_ADDR'] === '::1' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === 'localhost') {
     $dataForDb = Config::getDbSettingDevel();
-    Tracy\Debugger::enable();
-    Tracy\Debugger::$strictMode = true;
+    if(class_exists(Tracy\Debugger::DEBUG)) {
+        Tracy\Debugger::enable();
+        Tracy\Debugger::$strictMode = true;
+    }
 } else {
     $dataForDb = Config::getDbSettingProduction();
 }
