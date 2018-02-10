@@ -17,6 +17,10 @@ class UserService implements iUser
     {
         return $this->userDAO->save($user);
     }
+    public function deleteById($userId)
+    {
+        return $this->userDAO->deleteById($userId);
+    }
     
     public function delete(User $user)
     {
