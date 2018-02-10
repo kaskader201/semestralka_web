@@ -5,7 +5,7 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', true);
 ini_set('session.name', 'ASPSESSIONID');
 ini_set('expose_php', 'off');
-session_start();
+
 if (!file_exists('temp') && !mkdir('temp', 0777, true) && !is_dir('temp')) {
     throw new \RuntimeException(sprintf('Directory "%s" was not created', 'temp'));
 }
@@ -25,6 +25,7 @@ if(class_exists(Nette\Loaders\RobotLoader::class)) {
 } else{
     throw new Exception('Need RobotLoader do Composer update');
 }
+session_start();
 //treba dat do httpd.conf nebo apache.conf :
 ini_set('TraceEnable', 'off');
 ini_set('ServerSignature', 'off');

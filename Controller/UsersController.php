@@ -33,7 +33,7 @@ class UsersController extends Controller
                         $this->redirect('users');
                     }
                 } elseif ($urlParameters[0] === 'new') {
-                
+                    $this->showCreateNewUser();
                 } else {
                     $this->redirect('users');
                 }
@@ -57,7 +57,8 @@ class UsersController extends Controller
      */
     private function saveUser($data)
     {
-    
+        die('saveProcess');
+        $this->redirect('users');
     }
     
     /**
@@ -84,5 +85,11 @@ class UsersController extends Controller
         //$this->renderData['token'] = substr(bin2hex(random_bytes(20)), 1, 20);
         $this->renderData['user'] = $result;
         $this->view = 'Users/edit';
+    }
+    private function showCreateNewUser(){
+        $this->renderData['CSRF_token'] = CSRF::getNewToken(self::CREATE_NEW_USER);
+        $this->renderData['CSRF_input_name'] = CSRF::INPUT_NAME;
+
+        $this->view = 'Users/new';
     }
 }
