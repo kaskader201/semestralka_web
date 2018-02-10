@@ -13,11 +13,11 @@ class User implements iUser
     /**
      * @string
      */
-    private $password;
+    public $tel;
     /**
      * @string
      */
-    private $salt;
+    private $password;
     /**
      * @string
      */
@@ -25,7 +25,11 @@ class User implements iUser
     /**
      * @int
      */
-    private $permission;
+    public $permission;
+    /**
+     * @bool
+     */
+    public $active;
     /**
      * @string
      */
@@ -34,8 +38,10 @@ class User implements iUser
      * @string
      */
     public $lastname;
-    
-    
+    /**
+     * @bool
+     */
+    public $verified;
     /**
      * @var UserService
      */
@@ -57,21 +63,21 @@ class User implements iUser
     }
     
     /**
-     * @param mixed $salt
+     * @param string $tel
      * @return User
      */
-    public function setSalt(string $salt): User
+    public function setTel(string $tel): User
     {
-        $this->salt = $salt;
+        $this->tel = $tel;
         return $this;
     }
     
     /**
      * @return string
      */
-    public function getSalt(): string
+    public function getTel(): string
     {
-        return $this->salt;
+        return $this->tel;
     }
     
     /**
@@ -201,6 +207,41 @@ class User implements iUser
         return $this;
     }
     
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return (bool) $this->active;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isVerified(): bool
+    {
+        return (bool) $this->verified;
+    }
+    
+    /**
+     * @param bool $active
+     * @return User
+     */
+    public function setActive(bool $active): User
+    {
+        $this->active = $active;
+        return $this;
+    }
+    
+    /**
+     * @param bool $verified
+     * @return User
+     */
+    public function setVerified(bool $verified): User
+    {
+        $this->verified = $verified;
+        return $this;
+    }
     
     public function delete(User $user)
     {
@@ -214,7 +255,7 @@ class User implements iUser
     
     public function __toString()
     {
-        return sprintf('%s %s',$this->getFirstname(), $this->getLastname());
+        return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
     }
     
 }

@@ -44,15 +44,20 @@ class RouterController extends Controller
         
         // Volání vykonání controlleru
         $this->instanceOfController->controlProcess($url);
-        $this->renderData['block'] = $this->instanceOfController->view.'.latte';
-        foreach ($this->instanceOfController->renderData as $key => $value){
-            $this->renderData[$key] = $value;
+        $this->dontRender = $this->instanceOfController->dontRender;
+        if (!$this->dontRender) {
+            $this->renderData['block'] = $this->instanceOfController->view . '.latte';
+            foreach ($this->instanceOfController->renderData as $key => $value) {
+                $this->renderData[$key] = $value;
+            }
+            $this->renderData['baseURL'] = Config::getBaseUrl();
+            $this->renderData['additionalyJs'] = $this->instanceOfController->getAdditionallyJS();
+            $this->renderData['additionalyCSS'] = $this->instanceOfController->getAdditionallyCSS();
+            $this->renderData['title'] = (!empty($this->instanceOfController->seoHeader['title']) ? $this->instanceOfController->seoHeader['title'] : Config::getSeo()->title);
+            $this->renderData['keywords'] = (!empty($this->instanceOfController->seoHeader['keywords']) ? $this->instanceOfController->seoHeader['keywords'] : Config::getSeo()->keywords);
+            $this->renderData['description'] = (!empty($this->instanceOfController->seoHeader['description']) ? $this->instanceOfController->seoHeader['description'] : Config::getSeo()->description);
+            $this->view = 'layout';
         }
-        $this->renderData['baseURL'] = Config::getBaseUrl();
-        $this->renderData['additionalyJs'] = $this->instanceOfController->getAdditionallyJS();
-        $this->renderData['title'] = (!empty($this->instanceOfController->seoHeader['title']) ? $this->instanceOfController->seoHeader['title'] : Config::getSeo()->title);
-        $this->renderData['keywords'] = (!empty($this->instanceOfController->seoHeader['keywords']) ? $this->instanceOfController->seoHeader['keywords'] : Config::getSeo()->keywords);
-        $this->renderData['description'] = (!empty($this->instanceOfController->seoHeader['description']) ? $this->instanceOfController->seoHeader['description'] : Config::getSeo()->description);
-        $this->view = 'layout';
+        
     }
 }
