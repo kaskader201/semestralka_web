@@ -3,6 +3,9 @@
 
 class UserService implements iUser
 {
+    /**
+     * @var UserDAO
+     */
     private $userDAO;
     
     public function __construct()
@@ -20,21 +23,48 @@ class UserService implements iUser
         return $this->userDAO->delete($user);
     }
     
+    public function getById(int $userId)
+    {
+        $user = $this->userDAO->getById($userId);
+        if($user){
+            return $this->setUserData($user);
+        }
+        return false;
+    }
+    
+    public function getByEmail(string $userEmail)
+    {
+        $user = $this->userDAO->getByEmail($userEmail);
+        if($user){
+            return $this->setUserData($user);
+        }
+        return false;
+    }
+    
     public function getAllUsers()
     {
         $users = [];
-        foreach ($this->userDAO->getAllUsers() as $dbUser) {
-            $user = (new User())
-                ->setId($dbUser['id'])
-                ->setPermission($dbUser['permission'])
-                ->setPassword($dbUser['password'])
-                ->setEmail($dbUser['email'])
-                ->setSalt($dbUser['salt'])
-                ->setToken($dbUser['token'])
-                ->setFirstname($dbUser['firstname'])
-                ->setLastname($dbUser['lastname']);
+        $resultUsers = $this->userDAO->getAllUsers();
+        foreach ($resultUsers as $dbUser) {
+            $user = $this->setUserData($dbUser);
             $users[] = $user;
+            
         }
+        
         return $users;
+    }
+    
+    private function setUserData(array $dbUser)
+    {
+        return (new User())
+            ->setId($dbUser['id'])
+            ->setPermission((bool) $dbUser['permission'])
+            ->setActive((bool) $dbUser['active'])
+            ->setPassword($dbUser['password'])
+            ->setTel($dbUser['tel'])
+            ->setEmail($dbUser['email'])
+            ->setToken($dbUser['token'])
+            ->setFirstname($dbUser['firstname'])
+            ->setLastname($dbUser['lastname']);
     }
 }

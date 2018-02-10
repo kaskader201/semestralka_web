@@ -14,6 +14,8 @@ abstract class Controller
     
     protected $additionallyJS = [];
     
+    protected $additionallyCSS = [];
+    
     /**
      * @param array $urlParameters
      * @return void
@@ -60,6 +62,12 @@ abstract class Controller
             $this->additionallyJS[] = $item;
         }
     }
+    public function setAdditionallyCSS(array $css)
+    {
+        foreach ($css as $item){
+            $this->additionallyCSS[] = $item;
+        }
+    }
     
     /**
      * @return array
@@ -67,5 +75,13 @@ abstract class Controller
     public function getAdditionallyJS(): array
     {
         return $this->additionallyJS;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAdditionallyCSS(): array
+    {
+        return $this->additionallyCSS;
     }
 }

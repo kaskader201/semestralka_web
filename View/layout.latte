@@ -7,20 +7,22 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{$title}</title>
 
-
     <link rel="stylesheet" href="{$baseURL}css/bootstrap.min.css">
     <link rel="stylesheet" href="{$baseURL}css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="{$baseURL}css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="{$baseURL}css/custom.css?version=0.9">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    {foreach $additionalyCSS as $item}
+        <link rel="stylesheet" href="{$baseURL}css/{$item}">
+    {/foreach}
+
 
 </head>
 
 <body>
-
-    <div class="row no-gutters">
+<div class="container-fluid flex-column no-gutters fill">
+    <div class="row col fill no-gutters">
         <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 bg-dark">
             <nav class="nav navbar-dark navbar-expand-lg navbar">
 
@@ -29,11 +31,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Navigation menu container -->
-                <div class="navbar-collapse collapse flex-column mt-md-0 mt-4 pt-md-0 pt-4" id="collapseNavbar">
-                    <a href="index" class="nav-link navbar-brand active"><span class="fa fa-home"></span> Navigace</a>
-                    <a href="users" class="nav-link">Uživatelé</a>
-                    <a href="chyba-404" class="nav-link">Chyba</a>
-                    <a href="" class="nav-link">Linnk</a>
+                <div class="navbar-collapse collapse" id="collapseNavbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="index" class="nav-link navbar-brand active"><span class="fa fa-home"></span>
+                                Navigace</a></li>
+                        <li class="nav-item"><a href="users" class="nav-link">Uživatelé</a></li>
+                        <li class="nav-item"><a href="chyba-404" class="nav-link">Chyba</a></li>
+                        <li class="nav-item"><a href="" class="nav-link">Linnk</a></li>
+                    </ul>
                 </div>
 
             </nav>
@@ -41,12 +46,12 @@
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10">
             <main class="ml-3 mr-3 pt-3 pb-3">
-            {include $block}
+                {include $block}
             </main>
         </div>
     </div>
 
-
+</div>
 
 <!-- SCRIPTS -->
 <script src="{$baseURL}js/jquery-3.3.1.min.js"></script>

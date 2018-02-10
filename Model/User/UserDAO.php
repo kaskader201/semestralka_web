@@ -6,26 +6,26 @@ class UserDAO implements iUser
     {
         if ($user->getId() !== null) {
             return Db::query('DELETE FROM users WHERE id = ? AND email =?', array($user->getId(), $user->getEmail()));
-        } else {
-            return false;
         }
+        return false;
+        
     }
     
     public function save(User $user)
     {
         if ($user->getId() === null) {
             return $this->create($user);
-        } else {
-            return $this->update($user);
         }
+        return $this->update($user);
+        
     }
     
     protected function update(User $user)
     {
         $arrayUser = [
             'email' => $user->getEmail(),
+            'tel' => $user->getTel(),
             'password' => $user->getPassword(),
-            'salt' => $user->getSalt(),
             'token' => $user->getToken(),
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
@@ -34,12 +34,17 @@ class UserDAO implements iUser
         return Db::update('users', $arrayUser, ' WHERE id = ' . $user->getId());
     }
     
+    /**
+     * Vytvoří uživatele
+     * @param User $user
+     * @return int
+     */
     protected function create(User $user)
     {
         $arrayUser = [
             'email' => $user->getEmail(),
+            'tel' => $user->getTel(),
             'password' => $user->getPassword(),
-            'salt' => $user->getSalt(),
             'token' => $user->getToken(),
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
@@ -48,6 +53,11 @@ class UserDAO implements iUser
         return Db::insert('users', $arrayUser);
     }
     
+    /**
+     * Vrat uživatele dle ID
+     * @param int $userId
+     * @return mixed
+     */
     public function getById(int $userId)
     {
         return Db::queryOne('SELECT * FROM users WHERE id = ?', array($userId));
