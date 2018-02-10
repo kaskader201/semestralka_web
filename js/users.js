@@ -1,4 +1,6 @@
-$(".deleteUser").click(function () {
+$(".deleteUser").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
     var that = $(this);
     var idUser = $(this).data('id');
     var nameUser = $(this).data('name');

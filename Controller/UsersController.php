@@ -34,6 +34,8 @@ class UsersController extends Controller
                     }
                 } elseif ($urlParameters[0] === 'new') {
                     $this->showCreateNewUser();
+                } elseif($urlParameters[0] === 'delete'){
+                    die('delete');
                 } else {
                     $this->redirect('users');
                 }

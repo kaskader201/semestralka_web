@@ -21,7 +21,10 @@
                 <td>{$user->email}</td>
                 <td class="text-right">
                     <a href="/users/edit/{$user->id}" class="btn btn-warning rounded-0 text-white"><i class="fa fa-pencil" aria-hidden="true"></i> EDITOVAT</a>
-                    <button type="button" data-id="{$user->id}" data-name="{$user}" class="btn btn-danger rounded-0 text-white deleteUser"><i class="fa fa-trash-o" aria-hidden="true"></i> SMAZAT</button>
+                    <form action="/users/delete" method="post">
+                        <input type="hidden" name="id">
+                        <button type="submit" data-id="{$user->id}" data-name="{$user}" class="btn btn-danger rounded-0 text-white deleteUser"><i class="fa fa-trash-o" aria-hidden="true"></i> SMAZAT</button>
+                    </form>
                 </td>
 
             </tr>
