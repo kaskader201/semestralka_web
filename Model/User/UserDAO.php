@@ -10,6 +10,9 @@ class UserDAO implements iUser
         return false;
         
     }
+    public function deleteById(int $id){
+        return Db::query('DELETE FROM users WHERE id = ? ', array($id));
+    }
     
     public function save(User $user)
     {
