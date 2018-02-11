@@ -243,13 +243,16 @@ class User implements iUser
         return $this;
     }
     
-    public function delete(User $user)
+    
+    public function delete()
     {
+        $user = $this;
         $this->userService->delete($user);
     }
     
-    public function save(User $user)
+    public function save()
     {
+        $user = $this;
         return $this->userService->save($user);
     }
     

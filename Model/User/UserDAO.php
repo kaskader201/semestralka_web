@@ -1,6 +1,6 @@
 <?php
 
-class UserDAO implements iUser
+class UserDAO
 {
     public function delete(User $user)
     {
@@ -33,6 +33,7 @@ class UserDAO implements iUser
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
+            'active' => $user->isActive()
         ];
         return Db::update('users', $arrayUser, ' WHERE id = ' . $user->getId());
     }
@@ -52,6 +53,7 @@ class UserDAO implements iUser
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
+            'active' => $user->isActive()
         ];
         return Db::insert('users', $arrayUser);
     }

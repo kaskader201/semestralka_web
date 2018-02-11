@@ -71,16 +71,41 @@ class UsersController extends Controller
     private function saveUser($data, $typ, $idUser = null)
     {
         unset($data[CSRF::INPUT_NAME]);
-        var_dump($data);
+        //validace
+        //var_dump($data);
+        $userService = new UserService();
+        
+        
         switch ($typ) {
-            case $this->allowSave[0]:
+            case $this->allowSave[0]://edit
+                $user = $userService->getById($idUser);
+                foreach ($user as $key => $value) {
+                    if (isset($data[$key]) && $data[$key] !== $value) {
+                        $user->$key = $data[$key];
+                    }
+                    
+                }
+                if (!isset($data['active'])) {
+                    $user->active = false;
+                }
+                if($user->save()){
+                    FlashMessage::add((new Message())->setHeader('Úspěšně byl editován uživatel')->setText('Byl editován uživatel s ID: ' . $user->id)->setType(Message::SUCCESS));
+                    FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Došlo k chybě, bohužel nedošlo k editci uživatele s ID: ' . $user->id)->setType(Message::DANGER));
+                } else {
+                    FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Došlo k chybě, bohužel nedošlo k editci uživatele s ID: ' . $user->id)->setType(Message::DANGER));
+                }
+                
                 echo $this->allowSave[0];
                 break;
             case $this->allowSave[1]:
                 break;
         }
-        die('saveProcess');
         $this->redirect('users');
+    }
+    
+    private function validData($data)
+    {
+    
     }
     
     /**

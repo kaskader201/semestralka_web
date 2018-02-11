@@ -1,7 +1,7 @@
 <?php
 
 
-class UserService implements iUser
+class UserService
 {
     /**
      * @var UserDAO
@@ -13,6 +13,10 @@ class UserService implements iUser
         $this->userDAO = new UserDAO();
     }
     
+    /**
+     * @param User $user
+     * @return int|mixed
+     */
     public function save(User $user)
     {
         return $this->userDAO->save($user);

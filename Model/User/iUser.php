@@ -2,7 +2,7 @@
 
 interface iUser
 {
-    public function save(User $user);
+    public function save();
     
-    public function delete(User $user);
+    public function delete();
 }
