@@ -3,12 +3,13 @@
 
 class Permissions
 {
+    /*
     const WritePost = 1;
     const ReadPosts = 2;
     const DeletePosts = 4;
     const AddUser = 8;
     const DeleteUser = 16;
-    
+    */
     public $administrator;
     public $moderator;
     public $writer;
@@ -16,13 +17,13 @@ class Permissions
     
     public function __construct()
     {
-        $this->setGroups();
+    //    $this->setGroups();
     }
     
     /**
      * Setuje práva
      */
-    public function setGroups(){
+  /*  public function setGroups(){
         // User groups:
         $this->administrator = self::WritePost | self::ReadPosts |  self::DeletePosts |  self::AddUser |  self::DeleteUser;
         $this->moderator = self::ReadPosts | self::DeletePosts |  self::DeleteUser;
@@ -30,7 +31,7 @@ class Permissions
         $this->guest =  self::ReadPosts;
     
     }
-    
+*/
     /**
      * Vraci jestli daný uživatel má práva na danou akci
      * @param int $user

@@ -62,7 +62,7 @@ class UserService implements iUser
     {
         return (new User())
             ->setId($dbUser['id'])
-            ->setPermission((bool) $dbUser['permission'])
+            ->setPermission($dbUser['permission'])
             ->setActive((bool) $dbUser['active'])
             ->setPassword($dbUser['password'])
             ->setTel($dbUser['tel'])

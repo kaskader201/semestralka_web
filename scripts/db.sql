@@ -6,7 +6,7 @@ CREATE DATABASE jelinda6;
 
 
 CREATE TABLE USERS (
-  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id INT(6) AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
   tel VARCHAR(13) NOT NULL UNIQUE,
   password  VARCHAR(280) NOT NULL,
@@ -31,7 +31,7 @@ CREATE INDEX user_id
   ON USERS (active);
 
 CREATE TABLE PERMISSION (
-  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id INT(6) AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(200) NOT NULL UNIQUE,
   value int(6) NOT NULL UNIQUE,
   CONSTRAINT Unique_Permission UNIQUE (name,value)
@@ -47,10 +47,13 @@ INSERT INTO `permission` (`id`, `name`, `value`) VALUES
   (3, 'Editor', 3);
 
 CREATE TABLE MENU (
-  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  text VARCHAR(200) NOT NULL UNIQUE,
+  id INT(6)  AUTO_INCREMENT PRIMARY KEY,
+  text VARCHAR(200) NOT NULL ,
   url VARCHAR(200) NOT NULL,
-  min_permisssion int(6) NOT NULL UNIQUE,
+  min_permisssion int(6) NOT NULL,
   order_no int(3) NOT NULL,
   parent_menu_id int(6)
 );
+INSERT INTO `menu` (`text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
+  ('Hlavní strana', '', '1', '1', NULL),
+  ('Uživatelé', 'users', '31', '2', NULL);

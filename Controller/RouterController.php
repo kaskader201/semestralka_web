@@ -50,6 +50,7 @@ class RouterController extends Controller
             foreach ($this->instanceOfController->renderData as $key => $value) {
                 $this->renderData[$key] = $value;
             }
+            $this->renderData['menu'] = (new MenuManager())->renderMenu((new MenuManager())->getMenuItems(),'',false);
             $this->renderData['baseURL'] = Config::getBaseUrl();
             $this->renderData['additionalyJs'] = $this->instanceOfController->getAdditionallyJS();
             $this->renderData['additionalyCSS'] = $this->instanceOfController->getAdditionallyCSS();
