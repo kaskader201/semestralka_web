@@ -29,3 +29,28 @@ CREATE INDEX user_id
   ON USERS (id);
 CREATE INDEX user_id
   ON USERS (active);
+
+CREATE TABLE PERMISSION (
+  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) NOT NULL UNIQUE,
+  value int(6) NOT NULL UNIQUE,
+  CONSTRAINT Unique_Permission UNIQUE (name,value)
+);
+
+CREATE INDEX permission_value
+  ON PERMISSION (value);
+
+INSERT INTO `permission` (`id`, `name`, `value`) VALUES
+
+  (1, 'Guest', 1),
+  (2, 'Administrator', 31),
+  (3, 'Editor', 3);
+
+CREATE TABLE MENU (
+  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  text VARCHAR(200) NOT NULL UNIQUE,
+  url VARCHAR(200) NOT NULL,
+  min_permisssion int(6) NOT NULL UNIQUE,
+  order_no int(3) NOT NULL,
+  parent_menu_id int(6)
+);
