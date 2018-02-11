@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{$baseURL}css/custom.css?version=0.9">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     {foreach $additionalyCSS as $item}
         <link rel="stylesheet" href="{$baseURL}css/{$item}">
     {/foreach}
@@ -66,10 +67,13 @@
 <script src="{$baseURL}js/maskedinput.js"></script>
 <script src="{$baseURL}js/jquery-confirm.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 {foreach $additionalyJs as $item}
     <script src="{$baseURL}js/{$item}"></script>
 {/foreach}
 
-
+<script>
+    $("#tel").mask("(+420) 999 999 999");
+</script>
 </body>
 </html>

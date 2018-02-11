@@ -8,6 +8,7 @@ class UsersController extends Controller
      * @var UserService
      */
     private $userService;
+    private $allowSave = ['edit', 'new'];
     
     public function __construct()
     {
@@ -25,16 +26,9 @@ class UsersController extends Controller
                 $this->showAllUsers();
                 break;
             case 1:
-                if ($urlParameters[0] === 'save') {
-                    //byl odeslán formulář postem exituje v něm prvek (csrf token) a současně je csrf token pro povolené akce validní
-                    if (isset($_POST[CSRF::INPUT_NAME]) && (CSRF::isTokenValid($_POST[CSRF::INPUT_NAME], self::EDIT_USER) || CSRF::isTokenValid($_POST[CSRF::INPUT_NAME], self::CREATE_NEW_USER))) {
-                        $this->saveUser($_POST);
-                    } else {
-                        $this->redirect('users');
-                    }
-                } elseif ($urlParameters[0] === 'new') {
+                if ($urlParameters[0] === 'new') {
                     $this->showCreateNewUser();
-                } elseif($urlParameters[0] === 'delete'){
+                } elseif ($urlParameters[0] === 'delete') {
                     die('delete');
                 } else {
                     $this->redirect('users');
@@ -43,8 +37,25 @@ class UsersController extends Controller
             case 2:
                 if ($urlParameters[0] === 'edit' && is_numeric($urlParameters[1])) {
                     $this->showEditUser((int) $urlParameters[1]);
+                } elseif ($urlParameters[0] === 'save' && $urlParameters[1] == $this->allowSave[1]) { //uložení novéhu uživatele
+                    //byl odeslán formulář postem exituje v něm prvek (csrf token) a současně je csrf token pro povolené akce validní
+                    if (isset($_POST[CSRF::INPUT_NAME]) && (CSRF::isTokenValid($_POST[CSRF::INPUT_NAME], self::EDIT_USER) || CSRF::isTokenValid($_POST[CSRF::INPUT_NAME], self::CREATE_NEW_USER))) {
+                        $this->saveUser($_POST, $urlParameters[1]);
+                    } else {
+                        $this->redirect('users');
+                    }
                 } else {
                     $this->redirect('users');
+                }
+                break;
+            case 3:
+                if ($urlParameters[0] === 'save' && $urlParameters[1] == $this->allowSave[0] && is_numeric($urlParameters[2])) {
+                    //byl odeslán formulář postem exituje v něm prvek (csrf token) a současně je csrf token pro povolené akce validní
+                    if (isset($_POST[CSRF::INPUT_NAME]) && (CSRF::isTokenValid($_POST[CSRF::INPUT_NAME], self::EDIT_USER) || CSRF::isTokenValid($_POST[CSRF::INPUT_NAME], self::CREATE_NEW_USER))) {
+                        $this->saveUser($_POST, $urlParameters[1], $urlParameters[2]);
+                    } else {
+                        $this->redirect('users');
+                    }
                 }
                 break;
             default:
@@ -57,8 +68,17 @@ class UsersController extends Controller
      * proces ukládání nového uživatele či změn na něm
      * @param $data
      */
-    private function saveUser($data)
+    private function saveUser($data, $typ, $idUser = null)
     {
+        unset($data[CSRF::INPUT_NAME]);
+        var_dump($data);
+        switch ($typ) {
+            case $this->allowSave[0]:
+                echo $this->allowSave[0];
+                break;
+            case $this->allowSave[1]:
+                break;
+        }
         die('saveProcess');
         $this->redirect('users');
     }
@@ -82,16 +102,20 @@ class UsersController extends Controller
         if (!$result) {
             $this->redirect('users');
         }
+        $this->renderData['permissions'] = Permissions::getAllPermision();
         $this->renderData['CSRF_token'] = CSRF::getNewToken(self::EDIT_USER);
         $this->renderData['CSRF_input_name'] = CSRF::INPUT_NAME;
         //$this->renderData['token'] = substr(bin2hex(random_bytes(20)), 1, 20);
         $this->renderData['user'] = $result;
         $this->view = 'Users/edit';
     }
-    private function showCreateNewUser(){
+    
+    private function showCreateNewUser()
+    {
+        $this->renderData['permissions'] = Permissions::getAllPermision();
         $this->renderData['CSRF_token'] = CSRF::getNewToken(self::CREATE_NEW_USER);
         $this->renderData['CSRF_input_name'] = CSRF::INPUT_NAME;
-
+        
         $this->view = 'Users/new';
     }
 }
