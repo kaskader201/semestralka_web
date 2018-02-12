@@ -10,8 +10,8 @@ class ProductsController extends Controller
 {
     public function controlProcess(array $urlParameters)
     {
-        $this->setAdditionallyJS(['dataTable.js']);
-        $this->setAdditionallyCSS(['jquery.dataTables.min.css']);
+        $this->setAdditionallyJS(['dataTable/jquery.dataTable.js','dataTable/dataTables.rowReorder.min.js','dataTable/dataTables.responsive.min.js','dataTable/dataTable.js', 'users.js']);
+        $this->setAdditionallyCSS(['dataTable/jquery.dataTables.min.css','dataTable/responsive.dataTables.min.css','dataTable/rowReorder.dataTables.min.css', 'jquery-confirm.css']);
         
         switch (count($urlParameters)) {
             case 0:
