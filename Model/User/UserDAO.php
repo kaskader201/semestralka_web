@@ -5,13 +5,13 @@ class UserDAO
     public function delete(User $user)
     {
         if ($user->getId() !== null) {
-            return Db::query('DELETE FROM users WHERE id = ? AND email =?', array($user->getId(), $user->getEmail()));
+            return Db::query('DELETE FROM USERS WHERE id = ? AND email =?', array($user->getId(), $user->getEmail()));
         }
         return false;
         
     }
     public function deleteById(int $id){
-        return Db::query('DELETE FROM users WHERE id = ? ', array($id));
+        return Db::query('DELETE FROM USERS WHERE id = ? ', array($id));
     }
     
     public function save(User $user)
@@ -36,7 +36,7 @@ class UserDAO
             'verified' => $user->isVerified(),
             'active' => $user->isActive()
         ];
-        return Db::update('users', $arrayUser, ' WHERE id = ' . $user->getId());
+        return Db::update('USERS', $arrayUser, ' WHERE id = ' . $user->getId());
     }
     
     /**
@@ -57,7 +57,7 @@ class UserDAO
             'verified' => $user->isVerified(),
             'active' => $user->isActive()
         ];
-        return Db::insert('users', $arrayUser);
+        return Db::insert('USERS', $arrayUser);
     }
     
     /**
@@ -67,18 +67,22 @@ class UserDAO
      */
     public function getById(int $userId)
     {
-        return Db::queryOne('SELECT * FROM users WHERE id = ?', array($userId));
+        return Db::queryOne('SELECT * FROM USERS WHERE id = ?', array($userId));
         
     }
     
     public function getByEmail(string $userEmail)
     {
-        return Db::queryOne('SELECT * FROM users WHERE email = ?', array($userEmail));
-        
+       return Db::queryOne('SELECT * FROM USERS WHERE email = ?', array($userEmail));
+       
     }
     
     public function getAllUsers(): array
     {
-        return Db::queryAll('SELECT * FROM users');
+        $result =  Db::queryAll('SELECT * FROM USERS');
+        if($result){
+            return $result;
+        }
+        return [];
     }
 }

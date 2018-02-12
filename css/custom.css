@@ -10,9 +10,12 @@
 html, body {
     height: 100%;
 }
-.fill {
-    flex:1;
-    height: 100%;
+@media (min-width: 992px){
+    .fill {
+        flex:1;
+        height: 100%;
+    }
+
 }
 
 

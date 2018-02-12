@@ -46,7 +46,7 @@ abstract class Controller
      */
     public function redirect(string $url = '', int $code = 301)
     {
-        header('Location: /' . $url, true, $code);
+        header('Location: '.Config::getBaseUrl().'' . $url, true, $code);
         header('Connection: close');
         exit;
     }

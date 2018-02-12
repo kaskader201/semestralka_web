@@ -5,6 +5,7 @@ Class Config implements iConfig
     private static $config = [
         'urlAdrress' => [
             self::DEV => 'http://localhost/',
+         //   self::PRODUCTION => 'https://jelinda6.art37.cz/'
             self::PRODUCTION => 'http://wa.toad.cz/~jelinda6/'
         ],
         'seo' => [
@@ -19,6 +20,12 @@ Class Config implements iConfig
                 'dbName' => 'semestralka',
                 'dbAddress' => 'localhost',
             ],
+            /*self::PRODUCTION => [
+                'login' => 'w117164_semestr',
+                'password' => 'PkMJccNQ',
+                'dbName' => 'd117164_semestr',
+                'dbAddress' => 'wm101.wedos.net',
+            ],*/
             self::PRODUCTION => [
                 'login' => 'jelinda6',
                 'password' => 'webove aplikace',

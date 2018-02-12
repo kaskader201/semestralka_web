@@ -27,8 +27,7 @@ CREATE INDEX user_token
   ON USERS (token);
 CREATE INDEX user_id
   ON USERS (id);
-CREATE INDEX user_id
-  ON USERS (active);
+
 
 CREATE TABLE PERMISSION (
   id    INT(6) AUTO_INCREMENT PRIMARY KEY,
@@ -40,7 +39,7 @@ CREATE TABLE PERMISSION (
 CREATE INDEX permission_value
   ON PERMISSION (value);
 
-INSERT INTO `permission` (`id`, `name`, `value`) VALUES
+INSERT INTO `PERMISSION` (`id`, `name`, `value`) VALUES
 
   (1, 'Guest', 1),
   (2, 'Administrator', 31),
@@ -54,7 +53,7 @@ CREATE TABLE MENU (
   order_no        INT(3)       NOT NULL,
   parent_menu_id  INT(6)
 );
-INSERT INTO `menu` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
+INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
   (1, 'Hlavní strana', '', 1, 1, NULL),
   (2, 'Uživatelé', 'users', 31, 2, NULL),
   (3, 'Vytvoření nového uživatele', 'new', 31, 1, 2),

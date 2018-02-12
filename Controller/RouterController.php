@@ -23,7 +23,12 @@ class RouterController extends Controller
         // Odstranění bílých znaků kolem adresy
         $url['path'] = trim($url['path']);
         
-        return explode('/', $url['path']);
+        $result = explode('/', $url['path']);
+        if($result[0] == '~jelinda6'){
+            unset($result[0]);
+            $result =  array_values($result);
+        }
+        return $result;
     }
     
     public function controlProcess(array $urlParameters)

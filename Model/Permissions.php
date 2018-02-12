@@ -18,13 +18,13 @@ class Permissions
     
     public static function getAllPermision(): array
     {
-        $result = Db::queryAll('SELECT * FROM permission');
+        $result = Db::queryAll('SELECT * FROM PERMISSION');
        // foreach ($result as $)
         return $result;
     }
     
     public static function translatePermission(int $permission): string
     {
-        return Db::queryOne('SELECT name FROM permission WHERE id = ?', array($permission))[0];
+        return Db::queryOne('SELECT name FROM PERMISSION WHERE id = ?', array($permission))[0];
     }
 }

@@ -3,7 +3,7 @@
 class SessionManager
 {   const USER = 'user';
     const USER_ID_NAME = 'own_user_id';
-    const IS_ADMIN_NAME = 'own_user_id';
+
 
     
     public static function getUserId()
@@ -12,7 +12,7 @@ class SessionManager
             $result = (int) $_SESSION[self::USER_ID_NAME];
         } else {
             if (!isset($_SESSION['token'])) {
-                (new Autorizace())->createSession();
+                
             }
             $result = $_SESSION['token'];
         }
@@ -29,9 +29,6 @@ class SessionManager
         unset($_SESSION[self::USER_ID_NAME]);
     }
     
-    public static function isAdmin(){
-        return (bool)$_SESSION['admin'];
-    }
     public static function isLogin(){
         return (bool)$_SESSION['login'];
     }

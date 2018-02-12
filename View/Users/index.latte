@@ -30,8 +30,8 @@
                     <td>{Permissions::translatePermission($user->permission)}</td>
                     <td class="text-right">
 
-                        <form action="/users/delete" method="post">
-                            <a href="/users/edit/{$user->id}" class="btn btn-warning rounded-0 text-white"><i class="fa fa-pencil" aria-hidden="true"></i> EDITOVAT</a>
+                        <form action="users/delete" method="post">
+                            <a href="users/edit/{$user->id}" class="btn btn-warning rounded-0 text-white"><i class="fa fa-pencil" aria-hidden="true"></i> EDITOVAT</a>
                             <input type="hidden" name="id" value="{$user->id}">
                             <button type="submit" data-id="{$user->id}" data-name="{$user}"
                                     class="btn btn-danger rounded-0 text-white deleteUser"><i class="fa fa-trash-o"

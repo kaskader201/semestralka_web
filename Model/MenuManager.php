@@ -7,10 +7,8 @@ class MenuManager
         // Vytvoříme prázdný strom
         $tree = array();
         // Pokusíme se najít položky, které patří do rodičovské kategorie ($parentId)
-        foreach ($items as $item)
-        {
-            if ($item['parent_menu_id'] == $parentId)
-            {
+        foreach ($items as $item) {
+            if ($item['parent_menu_id'] == $parentId) {
                 // Položku přidáme do nového stromu
                 $tree[$item['id']] = $item;
                 // A rekurzivně přidáme strom podpoložek
@@ -26,41 +24,38 @@ class MenuManager
      */
     public function getMenuItems()
     {
-        $categories = Db::queryAll('SELECT * FROM menu ORDER BY parent_menu_id, order_no, text');
+        $categories = Db::queryAll('SELECT * FROM MENU ORDER BY parent_menu_id, order_no, text');
         return $this->formatTree($categories, null);
     }
     
     public function renderMenu($categories, $parentUrl = '', $isMainCategory = true)
     {
         $menu = "";
-        if(!$isMainCategory){
-            $menu='<ul class="nav flex-column">';
-            $menu.=' <li class="nav-item"><a href="" class="nav-link text-white"><span class="fa fa-home"></span>
+        if (!$isMainCategory) {
+            $menu = '<ul class="nav flex-column">';
+            $menu .= ' <li class="nav-item"><a href="" class="nav-link text-white"><span class="fa fa-home"></span>
                         Navigace</a></li>';
         }
         
         
-        foreach ($categories as $index => $category)
-        {
-            $url = $parentUrl . '/' . $category['url'];
-            if ($category['subcategories'])
-            {
-                $menu.='<li class="nav-item"><a class="nav-link" href="'.$url.'"><h5 class="text-white">' . $category['text'] . '</h5></a>';
-                $menu.=	$this->renderMenu($category['subcategories'], $url, true);
-                $menu.='</li>';
-            }
-            else{
-                if(count($category['parent_menu_id'])==null){
-                    $menu.='<li class="nav-item"><a class="nav-link" href="'.$url.'"><h5 class="text-white">' . $category['text'] . '</h5></a>';
-    
+        foreach ($categories as $index => $category) {
+            $url = ($parentUrl === '' ? $category['url'] : $parentUrl . '/' . $category['url']);
+            if ($category['subcategories']) {
+                $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
+                $menu .= $this->renderMenu($category['subcategories'], $url, true);
+                $menu .= '</li>';
+            } else {
+                if (count($category['parent_menu_id']) == null) {
+                    $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
+                    
                 } else {
-                    $menu.='<li class="nav-item pl-2"><a href="'. $url . '" class="nav-link" data-path="' . $url . '">' . $category['text'] . '</a></li>';
+                    $menu .= '<li class="nav-item pl-2"><a href="' . $url . '" class="nav-link" data-path="' . $url . '">' . $category['text'] . '</a></li>';
                 }
                 
             }
             
         }
-        if(!$isMainCategory) {
+        if (!$isMainCategory) {
             $menu .= '</ul>';
         }
         return $menu;
