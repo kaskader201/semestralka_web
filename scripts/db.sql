@@ -59,4 +59,5 @@ INSERT INTO `menu` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_
   (2, 'Uživatelé', 'users', 31, 2, NULL),
   (3, 'Vytvoření nového uživatele', 'new', 31, 1, 2),
   (4, 'Přehled všech uživatelů', '', 31, 0, 2),
-  (5, 'Login', 'login', '1', '999', NULL);
+  (5, 'Login', 'login', '1', '999', NULL),
+  (6, 'Produkty', 'products', '1', '3', NULL);
