@@ -33,6 +33,7 @@ class UserDAO
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
+            'verified' => $user->isVerified(),
             'active' => $user->isActive()
         ];
         return Db::update('users', $arrayUser, ' WHERE id = ' . $user->getId());
@@ -53,6 +54,7 @@ class UserDAO
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
+            'verified' => $user->isVerified(),
             'active' => $user->isActive()
         ];
         return Db::insert('users', $arrayUser);

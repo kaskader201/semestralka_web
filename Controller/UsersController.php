@@ -71,14 +71,15 @@ class UsersController extends Controller
     private function saveUser($data, $typ, $idUser = null)
     {
         unset($data[CSRF::INPUT_NAME]);
-        //validace
-        //var_dump($data);
+        //todo: vracení pozměněných dat
+        $this->validData($data);
         $userService = new UserService();
         
         
         switch ($typ) {
             case $this->allowSave[0]://edit
-                $user = $userService->getById($idUser);
+                $userOriginal = $userService->getById($idUser);
+                $user = clone $userOriginal;
                 foreach ($user as $key => $value) {
                     if (isset($data[$key]) && $data[$key] !== $value) {
                         $user->$key = $data[$key];
@@ -88,16 +89,35 @@ class UsersController extends Controller
                 if (!isset($data['active'])) {
                     $user->active = false;
                 }
-                if($user->save()){
-                    FlashMessage::add((new Message())->setHeader('Úspěšně byl editován uživatel')->setText('Byl editován uživatel s ID: ' . $user->id)->setType(Message::SUCCESS));
-                    FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Došlo k chybě, bohužel nedošlo k editci uživatele s ID: ' . $user->id)->setType(Message::DANGER));
+                if (!isset($data['verified'])) {
+                    $user->verified = false;
+                }
+                if ($user != $userOriginal) {
+                    if ($user->save()) {
+                        FlashMessage::add((new Message())->setHeader('Úspěšně byl editován uživatel')->setText('Byl editován uživatel s ID: ' . $user->id)->setType(Message::SUCCESS));
+                    } else {
+                        FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Došlo k chybě, bohužel nedošlo k editci uživatele s ID: ' . $user->id)->setType(Message::DANGER));
+                    }
+                } else {
+                    FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Data se shodují s již uloženými daty. Nedošlo k editaci uživatele s ID: ' . $user->id)->setType(Message::INFO));
+                }
+                break;
+            case $this->allowSave[1]://vytvoření nového
+                $user = new User();
+                $user->setActive((!isset($data['active']) ? false : true))
+                    ->setVerified((!isset($data['verified']) ? false : true))
+                    ->setTel($data['tel'])
+                    ->setPassword($data['password'])
+                    ->setLastname($data['lastname'])
+                    ->setFirstname($data['firstname'])
+                    ->setEmail($data['email'])
+                    ->setToken(uniqid('s', true))
+                    ->setPermission($data['permission']);
+                if ($user->save()) {
+                    FlashMessage::add((new Message())->setHeader('Úspěšně byl vytvořen uživatel uživatel')->setText('Byl vytvořen uživatel.')->setType(Message::SUCCESS));
                 } else {
                     FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Došlo k chybě, bohužel nedošlo k editci uživatele s ID: ' . $user->id)->setType(Message::DANGER));
                 }
-                
-                echo $this->allowSave[0];
-                break;
-            case $this->allowSave[1]:
                 break;
         }
         $this->redirect('users');

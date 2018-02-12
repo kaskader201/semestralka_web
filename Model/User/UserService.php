@@ -21,6 +21,7 @@ class UserService
     {
         return $this->userDAO->save($user);
     }
+    
     public function deleteById($userId)
     {
         return $this->userDAO->deleteById($userId);
@@ -34,7 +35,7 @@ class UserService
     public function getById(int $userId)
     {
         $user = $this->userDAO->getById($userId);
-        if($user){
+        if ($user) {
             return $this->setUserData($user);
         }
         return false;
@@ -43,7 +44,7 @@ class UserService
     public function getByEmail(string $userEmail)
     {
         $user = $this->userDAO->getByEmail($userEmail);
-        if($user){
+        if ($user) {
             return $this->setUserData($user);
         }
         return false;
@@ -73,6 +74,7 @@ class UserService
             ->setEmail($dbUser['email'])
             ->setToken($dbUser['token'])
             ->setFirstname($dbUser['firstname'])
+            ->setVerified((bool) $dbUser['verified'])
             ->setLastname($dbUser['lastname']);
     }
 }

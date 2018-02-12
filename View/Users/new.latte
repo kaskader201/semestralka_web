@@ -19,6 +19,12 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="tel" class="col-2 col-form-label">Telefon: </label>
+        <div class="col-4">
+            <input class="form-control" type="tel" minlength="5" maxlength="15" name="tel" id="tel" required>
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="permission" class="col-2 col-form-label">Práva: </label>
         <div class="col-4">
             <select n:if="$permissions" name="permission" id="permission" class="form-control">
@@ -29,10 +35,24 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="password" class="col-2 col-form-label">Heslo: </label>
+        <div class="col-4">
+            <input class="form-control" type="password" minlength="6" name="password" id="password" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="verified" class="col-2 col-form-label checkbox-inline">Ověřený účet (nahrazuje ověření přes email uživatele):
+        </label>
+        <div class="col-4">
+            <input type="checkbox" value="1" name="verified" data-toggle="toggle" data-on="Ano"
+                   data-off="Ne" checked>
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="permission" class="col-2 col-form-label checkbox-inline">Aktivní účet:
         </label>
         <div class="col-4">
-            <input type="checkbox" id="toggle-event" value="1" name="active" data-toggle="toggle" data-on="Ano"
+            <input type="checkbox" value="1" name="active" data-toggle="toggle" data-on="Ano"
                    data-off="Ne" checked>
         </div>
     </div>

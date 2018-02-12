@@ -54,7 +54,9 @@ CREATE TABLE MENU (
   order_no        INT(3)       NOT NULL,
   parent_menu_id  INT(6)
 );
-INSERT INTO `menu` (`text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
-  ('Hlavní strana', '', '1', '1', NULL),
-  ('Uživatelé', 'users', '31', '2', NULL),
-  ('Login', 'login', '1', '999', NULL);
+INSERT INTO `menu` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
+  (1, 'Hlavní strana', '', 1, 1, NULL),
+  (2, 'Uživatelé', 'users', 31, 2, NULL),
+  (3, 'Vytvoření nového uživatele', 'new', 31, 1, 2),
+  (4, 'Přehled všech uživatelů', '', 31, 0, 2),
+  (5, 'Login', 'login', '1', '999', NULL);

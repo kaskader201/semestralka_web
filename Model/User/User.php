@@ -128,11 +128,16 @@ class User implements iUser
      * @param string $password
      * @return $this
      */
-    public function setPassword(string $password)
+    public function setPassword(string $password) : User
     {
         //todo: možnost zde vytvářet hash hesla nebo to nechat na nekom jinem
-        $this->password = $password;
+        $this->password = password_hash($password,PASSWORD_BCRYPT);
         return $this;
+    }
+    
+    public function verifyPassword(string $password) :bool
+    {
+        return password_verify($password,$this->getPassword());
     }
     
     /**
