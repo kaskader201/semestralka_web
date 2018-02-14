@@ -42,16 +42,23 @@ class MenuManager
             
             if (Permissions::checkPermission($category['min_permisssion'], SessionManager::getUserPermisson())){
             $url = ($parentUrl === '' ? $category['url'] : $parentUrl . '/' . $category['url']);
+            
             if ($category['subcategories']) {
                 $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
                 $menu .= $this->renderMenu($category['subcategories'], $url, true);
                 $menu .= '</li>';
             } else {
                 if (count($category['parent_menu_id']) == null) {
-                    $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
-                    
+                    if($url == 'login' && SessionManager::isLogin()){
+                        $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '/out"><h5 class="text-white">Logout</h5></a>';
+                    } else {
+                        $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
+                    }
                 } else {
-                    $menu .= '<li class="nav-item pl-2"><a href="' . $url . '" class="nav-link" data-path="' . $url . '">' . $category['text'] . '</a></li>';
+              
+                        $menu .= '<li class="nav-item pl-2"><a href="' . $url . '" class="nav-link" data-path="' . $url . '">' . $category['text'] . '</a></li>';
+            
+                    
                 }
                 
             }

@@ -39,7 +39,10 @@ class SessionManager
     
     public static function isLogin()
     {
-        return (bool)(isset($_SESSION[self::USER]['login']) ?? false);
+        return (isset($_SESSION[self::USER]['login']) ?? false);
+    }
+    public static function logOut(){
+        unset($_SESSION[self::USER]);
     }
     
     public static function setAfterLogin(User $user)
