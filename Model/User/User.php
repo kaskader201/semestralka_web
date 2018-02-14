@@ -123,21 +123,30 @@ class User implements iUser
     {
         return $this->password;
     }
+    public function setFirstPassword($password){
     
+    }
     /**
      * @param string $password
      * @return $this
      */
     public function setPassword(string $password) : User
     {
-        //todo: možnost zde vytvářet hash hesla nebo to nechat na nekom jinem
-        $this->password = password_hash($password,PASSWORD_BCRYPT);
+        if($this->getId() === null){
+            $this->password = password_hash($password,PASSWORD_BCRYPT);
+        } else{
+            $this->password = $password;
+        }
+        
         return $this;
     }
     
     public function verifyPassword(string $password) :bool
     {
-        return password_verify($password,$this->getPassword());
+       $y = password_hash($password,PASSWORD_BCRYPT);
+       $t = $this->getPassword();
+      $x = password_verify($password,$this->getPassword());
+      return $x;
     }
     
     /**

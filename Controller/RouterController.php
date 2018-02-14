@@ -37,7 +37,13 @@ class RouterController extends Controller
         if (empty($url[0])) {
             $url = ['index'];
         }
-        $controller = $this->doCamelCase(array_shift($url)) . 'Controller';
+        $urlCamle =  $this->doCamelCase(array_shift($url));
+//ověřuje jetli má uživatel práva na zobrazení dané kategorie
+        if(!Permissions::checkPermission(Permissions::getPermissionForCategory($urlCamle),SessionManager::getUserPermisson())){
+            $this->redirect('login');
+        }
+        
+        $controller = $urlCamle. 'Controller';
         
         // kontroler je 1. parametr URL
         if (file_exists('Controller/' . $controller . '.php')) {

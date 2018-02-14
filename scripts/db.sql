@@ -53,6 +53,8 @@ CREATE TABLE MENU (
   order_no        INT(3)       NOT NULL,
   parent_menu_id  INT(6)
 );
+ALTER TABLE `MENU` ADD `visible` TINYINT(1) NOT NULL DEFAULT '1' AFTER `parent_menu_id`;
+
 INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
   (1, 'Hlavní strana', '', 1, 1, NULL),
   (2, 'Uživatelé', 'users', 31, 2, NULL),
@@ -60,3 +62,5 @@ INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_
   (4, 'Přehled všech uživatelů', '', 31, 0, 2),
   (5, 'Login', 'login', '1', '999', NULL),
   (6, 'Produkty', 'products', '1', '3', NULL);
+
+INSERT INTO `MENU` ( `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES ('Ajax', 'ajax', '2', '0', NULL, '0');

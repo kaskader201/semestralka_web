@@ -3,7 +3,7 @@
 class SessionManager
 {   const USER = 'user';
     const USER_ID_NAME = 'own_user_id';
-
+    const  PERMISSON = 'permission';
 
     
     public static function getUserId()
@@ -18,7 +18,9 @@ class SessionManager
         }
         return $result;
     }
-    
+    public static function getUserPermisson(){
+        return ($_SESSION[self::USER][self::PERMISSON] ?? 1);
+    }
     public static function setUserId($id)
     {
         $id = (int) $id;

@@ -1,35 +1,35 @@
 <h1>Editace uživatele: {$user}</h1>
 <form action="users/save/edit/{$user->id}" method="post">
     <div class="form-group row">
-        <label for="firstname" class="col-2 col-form-label">Jméno: </label>
-        <div class="col-4">
+        <label for="firstname" class="col-4 col-form-label">Jméno: </label>
+        <div class="col-8">
             <input class="form-control" type="text" minlength="2" maxlength="35" value="{$user->firstname}"
                    name="firstname" id="firstname" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="lastname" class="col-2 col-form-label">Příjmení: </label>
-        <div class="col-4">
+        <label for="lastname" class="col-4 col-form-label">Příjmení: </label>
+        <div class="col-8">
             <input class="form-control" type="text" minlength="2" maxlength="35" value="{$user->lastname}"
                    name="lastname" id="lastname" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="email" class="col-2 col-form-label">Email: </label>
-        <div class="col-4">
+        <label for="email" class="col-4 col-form-label">Email: </label>
+        <div class="col-8">
             <input class="form-control" type="email" minlength="5" maxlength="255" value="{$user->email}" name="email"
                    id="email" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="tel" class="col-2 col-form-label">Telefon: </label>
-        <div class="col-4">
+        <label for="tel" class="col-4 col-form-label">Telefon: </label>
+        <div class="col-8">
             <input class="form-control" type="tel" minlength="5" maxlength="15" name="tel" value="{$user->tel}" id="tel" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="permission" class="col-2 col-form-label">Práva: </label>
-        <div class="col-4">
+        <label for="permission" class="col-4 col-form-label">Práva: </label>
+        <div class="col-8">
             <select n:if="$permissions" name="permission" id="permission" class="form-control">
                 <option n:foreach="$permissions as $permission"
                         value="{$permission["id"]}" {$user->permission == $permission["id"] ? 'selected' : ''}>{Permissions::translatePermission($permission["id"])}</option>
@@ -38,21 +38,21 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="verified" class="col-2 col-form-label checkbox-inline">Ověřený účet (nahrazuje ověření přes email uživatele):
+        <label for="verified" class="col-4 col-form-label checkbox-inline">Ověřený účet (nahrazuje ověření přes email uživatele):
         </label>
-        <div class="col-4">
+        <div class="col-8">
             <input type="checkbox" value="1" name="verified" data-toggle="toggle" data-on="Ano"
                    data-off="Ne" {$user->verified ? 'checked' : ''}>
         </div>
     </div>
     <div class="form-group row">
-        <label for="active" class="col-2 col-form-label checkbox-inline">Aktivní účet:
+        <label for="active" class="col-4 col-form-label checkbox-inline">Aktivní účet:
         </label>
-        <div class="col-4">
+        <div class="col-8">
             <input type="checkbox" id="active" value="1" name="active" data-toggle="toggle" data-on="Ano"
                    data-off="Ne"{$user->active ? 'checked' : ''}>
         </div>
     </div>
     <input type="hidden" name="{$CSRF_input_name}" value="{$CSRF_token}">
-    <button type="submit" class="btn btn-success rounded-0">Uložit</button>
+    <button type="submit" class="btn btn-lg btn-success rounded-0">Uložit</button>
 </form>

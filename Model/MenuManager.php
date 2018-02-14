@@ -24,7 +24,7 @@ class MenuManager
      */
     public function getMenuItems()
     {
-        $categories = Db::queryAll('SELECT * FROM MENU ORDER BY parent_menu_id, order_no, text');
+        $categories = Db::queryAll('SELECT * FROM MENU WHERE visible = 1 ORDER BY parent_menu_id, order_no, text');
         return $this->formatTree($categories, null);
     }
     
@@ -39,6 +39,8 @@ class MenuManager
         
         
         foreach ($categories as $index => $category) {
+            
+            if (Permissions::checkPermission($category['min_permisssion'], SessionManager::getUserPermisson())){
             $url = ($parentUrl === '' ? $category['url'] : $parentUrl . '/' . $category['url']);
             if ($category['subcategories']) {
                 $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
@@ -53,7 +55,7 @@ class MenuManager
                 }
                 
             }
-            
+        }
         }
         if (!$isMainCategory) {
             $menu .= '</ul>';
