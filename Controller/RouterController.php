@@ -61,6 +61,8 @@ class RouterController extends Controller
             foreach ($this->instanceOfController->renderData as $key => $value) {
                 $this->renderData[$key] = $value;
             }
+            $this->renderData['loginName'] = SessionManager::getUserName();
+            $this->renderData['isLogIn'] = SessionManager::isLogin();
             $this->renderData['menu'] = (new MenuManager())->renderMenu((new MenuManager())->getMenuItems(),'',false);
             $this->renderData['baseURL'] = Config::getBaseUrl();
             $this->renderData['additionalyJs'] = $this->instanceOfController->getAdditionallyJS();

@@ -143,10 +143,7 @@ class User implements iUser
     
     public function verifyPassword(string $password) :bool
     {
-       $y = password_hash($password,PASSWORD_BCRYPT);
-       $t = $this->getPassword();
-      $x = password_verify($password,$this->getPassword());
-      return $x;
+        return password_verify($password,$this->getPassword());
     }
     
     /**

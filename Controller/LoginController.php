@@ -11,7 +11,7 @@ class LoginController extends Controller
             $password = $_POST['password'];
             //do login procces
             if(LoginManager::loginProcess($email,$password)){
-            die('jo');
+             $this->redirect();
             }
         }
 

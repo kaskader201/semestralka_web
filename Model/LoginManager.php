@@ -2,8 +2,6 @@
 
 class LoginManager
 {
-    private $name;
-    private $password;
     
     public static function loginProcess($email, $password)
     {
@@ -11,8 +9,8 @@ class LoginManager
         if ($user !== false) {
             //user se nalezl
             if ($user->verifyPassword($password)) {
+                SessionManager::setAfterLogin($user);
                 return true;
-                
                 
             }
         }
