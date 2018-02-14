@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#dataTable').DataTable({
+   var table = $('#dataTable').DataTable({
         "paging": true,
         "lengthChange": true,
         "searching": true,
@@ -34,4 +34,5 @@ $(document).ready(function () {
         },
         responsive: true
     });
+
 });

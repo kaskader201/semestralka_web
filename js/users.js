@@ -25,7 +25,7 @@ $(".deleteUser").click(function (e) {
                         dataType: 'json',
                         success: function (data) {
                             $.alert('Uživatel byl úspěšně odstraněn.');
-                            that.parent().parent().hide();
+                            that.parent().parent().parent().hide();
                         }
                     });
                 }

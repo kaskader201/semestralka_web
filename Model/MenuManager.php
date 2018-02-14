@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * Class MenuManager
+ * Třída se stará o generování menu (navigace)
+ */
 class MenuManager
 {
+    /**
+     * Převede data z DB na stromovou strukturu
+     * @param $items
+     * @param $parentId
+     * @return array
+     */
     private function formatTree($items, $parentId)
     {
         // Vytvoříme prázdný strom
@@ -33,36 +43,35 @@ class MenuManager
         $menu = "";
         if (!$isMainCategory) {
             $menu = '<ul class="nav flex-column">';
-            $menu .= ' <li class="nav-item"><a href="" class="nav-link text-white"><span class="fa fa-home"></span>
-                        Navigace</a></li>';
+            if($parentUrl == '') {
+                $menu .= ' <li class="nav-item"><a href="" class="nav-link text-white"><h2><span class="fa fa-home"></span> Navigace</h2></a></li>';
+            }
         }
         
         
         foreach ($categories as $index => $category) {
             
-            if (Permissions::checkPermission($category['min_permisssion'], SessionManager::getUserPermisson())){
-            $url = ($parentUrl === '' ? $category['url'] : $parentUrl . '/' . $category['url']);
-            
-            if ($category['subcategories']) {
-                $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
-                $menu .= $this->renderMenu($category['subcategories'], $url, true);
-                $menu .= '</li>';
-            } else {
-                if (count($category['parent_menu_id']) == null) {
-                    if($url == 'login' && SessionManager::isLogin()){
-                        $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '/out"><h5 class="text-white">Logout</h5></a>';
-                    } else {
-                        $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h5 class="text-white">' . $category['text'] . '</h5></a>';
-                    }
+            if (Permissions::checkPermission($category['min_permisssion'], SessionManager::getUserPermisson())) {
+                $url = ($parentUrl === '' ? $category['url'] : $parentUrl . '/' . $category['url']);
+                
+                if ($category['subcategories']) {
+                    $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h3 class="text-white">' . $category['text'] . '</h3></a></li>'.PHP_EOL;
+                    $menu .= $this->renderMenu($category['subcategories'], $url, true);
+                   // $menu .= '</li>'.PHP_EOL;
                 } else {
-              
-                        $menu .= '<li class="nav-item pl-2"><a href="' . $url . '" class="nav-link" data-path="' . $url . '">' . $category['text'] . '</a></li>';
-            
+                    if (count($category['parent_menu_id']) == null) {
+                        if ($url == 'login' && SessionManager::isLogin()) {
+                            $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '/out"><h3 class="text-white">Logout</h3></a></li>'.PHP_EOL;
+                        } else {
+                            $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '"><h3 class="text-white">' . $category['text'] . '</h3></a></li>'.PHP_EOL;
+                        }
+                    } else {
+                        $menu .= '<li class="nav-item pl-2"><a href="' . $url . '" class="nav-link text-white" data-path="' . $url . '">' . $category['text'] . '</a></li>'.PHP_EOL;
+                        
+                    }
                     
                 }
-                
             }
-        }
         }
         if (!$isMainCategory) {
             $menu .= '</ul>';

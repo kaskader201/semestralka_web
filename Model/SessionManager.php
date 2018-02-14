@@ -7,20 +7,18 @@ class SessionManager
     const  PERMISSON = 'permission';
     
     
-    public static function getUserId()
+    public static function getUserId(): int
     {
-        if (isset($_SESSION[self::USER][self::USER_ID_NAME]) && $_SESSION[self::USER][self::USER_ID_NAME] != null) {
-            $result = (int) $_SESSION[self::USER][self::USER_ID_NAME];
-        } else {
-            if (!isset($_SESSION[self::USER]['token'])) {
-                
-            }
-            $result = $_SESSION[self::USER]['token'];
-        }
-        return $result;
+        
+        return (int) $_SESSION[self::USER][self::USER_ID_NAME];
+        
     }
     
-    public static function getUserPermisson()
+    /**
+     * Vrací práva uživatele
+     * @return int
+     */
+    public static function getUserPermisson(): int
     {
         return ($_SESSION[self::USER][self::PERMISSON] ?? 1);
     }
@@ -37,11 +35,13 @@ class SessionManager
         unset($_SESSION[self::USER][self::USER_ID_NAME]);
     }
     
-    public static function isLogin()
+    public static function isLogin(): bool
     {
         return (isset($_SESSION[self::USER]['login']) ?? false);
     }
-    public static function logOut(){
+    
+    public static function logOut()
+    {
         unset($_SESSION[self::USER]);
     }
     
@@ -49,6 +49,7 @@ class SessionManager
     {
         $_SESSION[self::USER]['login'] = true;
         $_SESSION[self::USER]['name'] = $user;
+        self::setUserId($user->getId());
         $_SESSION[self::USER][self::PERMISSON] = Permissions::getPermission($user->getPermission());
     }
     
@@ -56,10 +57,34 @@ class SessionManager
      * Vrací jmeno přihlášeneho uživatele nebo prázdný řetězec
      * @return string
      */
-    public static function getUserName() :string
+    public static function getUserName(): string
     {
         return (isset($_SESSION[self::USER]['name']) ?? '');
     }
     
+    public static function setErrorForm($element, $data = '')
+    {
+        $_SESSION['form']['error'][$element] = ['value' => $data];
+    }
+    
+    public static function getAllErrorForm()
+    {
+        $data = ($_SESSION['form']['error'] ?? false);
+        unset($_SESSION['form']['error']);
+        return $data;
+    }
+    
+    public static function getErrorFormValue($element)
+    {
+        if (isset($_SESSION['form']['error'][$element])) {
+            $data = $_SESSION['form']['error'][$element]['value'];
+            unset($_SESSION['form']['error'][$element]);
+        } else {
+            $data = null;
+        }
+        
+        
+        return $data;
+    }
     
 }

@@ -19,8 +19,8 @@ class UsersController extends Controller
     public function controlProcess(array $urlParameters)
     {
         
-        $this->setAdditionallyJS(['dataTable/jquery.dataTable.js','dataTable/dataTables.rowReorder.min.js','dataTable/dataTables.responsive.min.js','dataTable/dataTable.js', 'users.js']);
-        $this->setAdditionallyCSS(['dataTable/jquery.dataTables.min.css','dataTable/responsive.dataTables.min.css','dataTable/rowReorder.dataTables.min.css', 'jquery-confirm.css']);
+        $this->setAdditionallyJS(['dataTable/jquery.dataTable.js', 'dataTable/dataTables.rowReorder.min.js', 'dataTable/dataTables.responsive.min.js', 'dataTable/dataTable.js', 'users.js']);
+        $this->setAdditionallyCSS(['dataTable/jquery.dataTables.min.css', 'dataTable/responsive.dataTables.min.css', 'dataTable/rowReorder.dataTables.min.css', 'jquery-confirm.css']);
         switch (count($urlParameters)) {
             case 0:
                 $this->showAllUsers();
@@ -72,7 +72,11 @@ class UsersController extends Controller
     {
         unset($data[CSRF::INPUT_NAME]);
         //todo: vracení pozměněných dat
-        $this->validData($data);
+        if(!$this->validData($data)){
+            if($idUser == null){
+                $this->redirect('users/new');
+            }
+        }
         $userService = new UserService();
         
         
@@ -123,9 +127,31 @@ class UsersController extends Controller
         $this->redirect('users');
     }
     
-    private function validData($data)
+    private function validData(&$data)
     {
-    
+        $req = ['firstname', 'lastname', 'email', 'tel', 'permission', 'password'];
+        
+      $valid = true;
+        foreach ($req as $key){
+            if(!in_array($key, $data)){
+                SessionManager::setErrorForm($key);
+                $valid =false;
+            } elseif (empty($data[$key])){
+                SessionManager::setErrorForm($key);
+                $valid =false;
+            } else{
+                $data[$key] = htmlspecialchars(trim($data[$key]));
+            }
+        }
+        if(!$valid){
+            return false;
+        }
+        if (!filter_var(gethostbyname($data['email']), FILTER_VALIDATE_IP)) {
+            SessionManager::setErrorForm('email', $data['email'] );
+        }
+        
+        return true;
+        
     }
     
     /**

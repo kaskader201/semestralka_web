@@ -33,6 +33,10 @@ class Permissions
     
     public static function getPermissionForCategory(string $name): int {
         $name = strtolower($name);
-        return Db::queryOne('SELECT min_permisssion FROM MENU WHERE url = ?',array($name))[0];
+        $data = Db::queryOne('SELECT min_permisssion FROM MENU WHERE url = ?',array($name))[0];
+        if($data === null){
+            $data = 999;
+        }
+        return $data;
     }
 }

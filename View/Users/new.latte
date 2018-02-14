@@ -1,58 +1,58 @@
 <h1>Vytvoření uživatele</h1>
 <form action="users/save/new"  method="post">
     <div class="form-group row">
-        <label for="firstname" class="col-4 col-form-label">Jméno: </label>
-        <div class="col-8">
-            <input class="form-control" type="text" minlength="2" maxlength="25" name="firstname" id="firstname" required>
+        <label for="firstname" class="col-4 col-md-2 col-form-label">Jméno <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
+            <input class="form-control" type="text" minlength="2" maxlength="25" pattern="[A-Za-z]{2,25}" name="firstname" id="firstname" value="{SessionManager::getErrorFormValue('firstname')}" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="lastname" class="col-4 col-form-label">Příjmení: </label>
-        <div class="col-8">
-            <input class="form-control" type="text" minlength="2" maxlength="25" name="lastname" id="lastname" required>
+        <label for="lastname" class="col-4 col-md-2 col-form-label">Příjmení <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
+            <input class="form-control" type="text" minlength="2" maxlength="25" name="lastname" id="lastname" value="{SessionManager::getErrorFormValue('lastname')}" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="email" class="col-4 col-form-label">Email: </label>
-        <div class="col-8">
-            <input class="form-control" type="email" minlength="5" maxlength="255" name="email" id="email" required>
+        <label for="email" class="col-4 col-md-2 col-form-label">Email <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
+            <input class="form-control" type="email" minlength="5" maxlength="255" name="email" id="email" value="{SessionManager::getErrorFormValue('email')}" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="tel" class="col-4 col-form-label">Telefon: </label>
-        <div class="col-8">
+        <label for="tel" class="col-4 col-md-2 col-form-label">Telefon <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
             <input class="form-control" type="tel" minlength="5" maxlength="15" name="tel" id="tel" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="permission" class="col-4 col-form-label">Práva: </label>
-        <div class="col-8">
+        <label for="permission" class="col-4 col-md-2 col-form-label">Práva <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
             <select n:if="$permissions" name="permission" id="permission" class="form-control">
                 <option n:foreach="$permissions as $permission"
-                        value="{$permission["id"]}">{Permissions::translatePermission($permission["id"])}</option>
+                        value="{$permission["id"]}" {$permission["id"] == SessionManager::getErrorFormValue('permission')? 'selected' :'' |noescape}>{Permissions::translatePermission($permission["id"])}</option>
             </select>
 
         </div>
     </div>
     <div class="form-group row">
-        <label for="password" class="col-4 col-form-label">Heslo: </label>
-        <div class="col-8">
+        <label for="password" class="col-4 col-md-2 col-form-label">Heslo <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
             <input class="form-control" type="password" minlength="6" name="password" id="password" required>
         </div>
     </div>
     <div class="form-group row">
-        <label for="verified" class="col-4 col-form-label checkbox-inline">Ověřený účet (nahrazuje ověření přes email uživatele):
+        <label for="verified" class="col-4 col-md-2 col-form-label checkbox-inline">Ověřený účet (nahrazuje ověření přes email uživatele) :
         </label>
-        <div class="col-8">
-            <input type="checkbox" value="1" name="verified" data-toggle="toggle" data-on="Ano"
+        <div class="col-8 col-md-4">
+            <input type="checkbox" value="1" name="verified" data-toggle="toggle" data-on="Ano" id="verified"
                    data-off="Ne" checked>
         </div>
     </div>
     <div class="form-group row">
-        <label for="permission" class="col-4 col-form-label checkbox-inline">Aktivní účet:
+        <label for="active" class="col-4 col-md-2 col-form-label checkbox-inline">Aktivní účet :
         </label>
-        <div class="col-8">
-            <input type="checkbox" value="1" name="active" data-toggle="toggle" data-on="Ano"
+        <div class="col-8 col-md-4">
+            <input type="checkbox" value="1" id="active" name="active" data-toggle="toggle" data-on="Ano"
                    data-off="Ne" checked>
         </div>
     </div>

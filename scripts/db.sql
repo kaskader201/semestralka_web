@@ -1,9 +1,3 @@
-#pro devel
-CREATE DATABASE semestralka;
-#pro produkci
-CREATE DATABASE jelinda6;
-
-
 CREATE TABLE USERS (
   id                INT(6)                AUTO_INCREMENT PRIMARY KEY,
   email             VARCHAR(255) NOT NULL UNIQUE,
@@ -27,6 +21,9 @@ CREATE INDEX user_token
   ON USERS (token);
 CREATE INDEX user_id
   ON USERS (id);
+INSERT INTO `USERS` (`email`, `tel`, `password`, `token`, `permission`, `firstname`, `lastname`, `reg_date`, `verified`, `active`, `verification_code`) VALUES
+  ('t@t.cz', '(+420) 545 454 546', '$2y$10$tB/aUcY1Cmk/8XP2nDvjO.AxwaqxoyaYcUb2EpITE7r9DnNE7vZJy', 's5a83682c106979.31836314', 2, 'Admin', 'Test', '2018-01-13 22:35:24', 1, 1, NULL),
+  ('t2@t.cz', '(+420) 122 112 313', '$2y$10$Vj6Ox.1vRnFScNC.TMJDN.diKw6sDmi.LVqdDwyELduJDiP6d9olS', 's5a84684d10db62.66778186', 3, 'Editor', 'Test', '2018-01-14 16:48:13', 1, 1, NULL);
 
 
 CREATE TABLE PERMISSION (
