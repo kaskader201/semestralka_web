@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Class Controller
+ */
 abstract class Controller
 {
     //nasetovaná data pro render

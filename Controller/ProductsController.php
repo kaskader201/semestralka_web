@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: expan
- * Date: 11.02.2018
- * Time: 23:57
+ * Class ProductsController
  */
 
 class ProductsController extends Controller

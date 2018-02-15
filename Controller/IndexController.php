@@ -1,6 +1,9 @@
 <?php
 
-
+/**
+ * Class IndexController
+ * Hlavní stranka
+ */
 class IndexController extends Controller
 {
     public function controlProcess(array $urlParameters)

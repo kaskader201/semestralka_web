@@ -9,6 +9,9 @@ class AjaxController extends Controller
 {
     const AJAX_DELETE_USER = 'deleteUser';
     
+    /**
+     * @param array $urlParameters
+     */
     public function controlProcess(array $urlParameters)
     {
         

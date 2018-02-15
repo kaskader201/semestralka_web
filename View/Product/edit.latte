@@ -1,0 +1,18 @@
+<h1>Editace produktu:</h1>
+<form action="products/edit/{$product->getId()}" id="newProduct" method="post">
+    <div class="form-group row">
+        <label for="name" class="col-4 col-md-2 col-form-label">Jméno <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
+            <input class="form-control" type="text" minlength="2" maxlength="25" name="name" id="name" value="{$product->getName()}" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="price" class="col-4 col-md-2 col-form-label">Cena <span class="text-danger">*</span>: </label>
+        <div class="col-8 col-md-4">
+            <input class="form-control" type="number" min="1" max="999.99" name="price" id="price" value="{$product->getPrice()}" required>
+        </div>
+    </div>
+
+    <input type="hidden" name="{$CSRF_input_name}" value="{$CSRF_token}">
+    <button type="submit" class="btn btn-success rounded-0">Uložit</button>
+</form>

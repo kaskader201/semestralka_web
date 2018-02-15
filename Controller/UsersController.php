@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class UsersController
+ */
 class UsersController extends Controller
 {
     const EDIT_USER = 'edit_user';
@@ -145,7 +148,7 @@ class UsersController extends Controller
             } else {
                 if ($key !== 'password') {
                     SessionManager::setErrorForm($key, $data[$key]);
-                } elseif($key !== 'email'){
+                } elseif ($key !== 'email') {
                     if ((new UserService())->getByEmail($data['email'])) {
                         FlashMessage::add((new Message())->setHeader('Email')->setText('Bohuže zadaný email evidujeme již u jiného uživatele.')->setType(Message::DANGER));
                         $valid = false;
