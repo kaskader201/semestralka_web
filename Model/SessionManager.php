@@ -77,8 +77,8 @@ class SessionManager
     public static function getErrorFormValue($element)
     {
         if (isset($_SESSION['form']['error'][$element])) {
-            $data = $_SESSION['form']['error'][$element]['value'];
-            unset($_SESSION['form']['error'][$element]);
+            $data = (string)$_SESSION['form']['error'][$element]['value'];
+           unset($_SESSION['form']['error'][$element]);
         } else {
             $data = null;
         }

@@ -41,24 +41,26 @@ class RouterController extends Controller
         if (empty($url[0])) {
             $url = ['index'];
         }
+        $urlOld = $url[0];
         $urlCamle = $this->doCamelCase(array_shift($url));
-//ověřuje jetli má uživatel práva na zobrazení dané kategorie
-        if (!Permissions::checkPermission(Permissions::getPermissionForCategory($urlCamle), SessionManager::getUserPermisson())) {
-            FlashMessage::add((new Message())->setHeader('Nemáte oprávnění na tuto akci.')->setText('Bohužel na tuto akci nemáte oprávnění')->setType(Message::DANGER));
-            Logger::log()->warning(__METHOD__ . ' IP:' . $_SERVER['REMOTE_ADDR'] . ' se snaži o nepovolenou akci:  ' . $urlCamle . ' a jeho opravneni je: ' . SessionManager::getUserPermisson());
-            $this->redirect('index');
-        }
-        
+
         $controller = $urlCamle . 'Controller';
         
         // kontroler je 1. parametr URL
         if (file_exists('Controller/' . $controller . '.php')) {
+            //ověřuje jetli má uživatel práva na zobrazení dané kategorie
+            if (!Permissions::checkPermission(Permissions::getPermissionForCategory($urlOld), SessionManager::getUserPermisson())) {
+                FlashMessage::add((new Message())->setHeader('Nemáte oprávnění na tuto akci.')->setText('Bohužel na tuto akci nemáte oprávnění')->setType(Message::DANGER));
+                Logger::log()->warning(__METHOD__ . ' IP:' . $_SERVER['REMOTE_ADDR'] . ' se snaži o nepovolenou akci:  ' . $urlOld . ' a jeho opravneni je: ' . SessionManager::getUserPermisson());
+                $this->redirect('index');
+            }
             $this->instanceOfController = new $controller;
         } else {
             Logger::log()->warning(__METHOD__ . ' IP:' . $_SERVER['REMOTE_ADDR'] . ' nenašel kontroler: ' . $controller);
             $this->redirect('error-404');
         }
-        
+
+    
         // Volání vykonání controlleru
         $this->instanceOfController->controlProcess($url);
         $this->dontRender = $this->instanceOfController->dontRender;

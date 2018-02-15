@@ -72,9 +72,11 @@ class UsersController extends Controller
     {
         unset($data[CSRF::INPUT_NAME]);
         //todo: vracení pozměněných dat
-        if(!$this->validData($data)){
-            if($idUser == null){
+        if (!$this->validData($data, $typ)) {
+            if ($idUser === null) {
                 $this->redirect('users/new');
+            } else {
+                $this->redirect('users/edit/' . $idUser);
             }
         }
         $userService = new UserService();
@@ -120,34 +122,44 @@ class UsersController extends Controller
                 if ($user->save()) {
                     FlashMessage::add((new Message())->setHeader('Úspěšně byl vytvořen uživatel uživatel')->setText('Byl vytvořen uživatel.')->setType(Message::SUCCESS));
                 } else {
-                    FlashMessage::add((new Message())->setHeader('Nebyl editován uživatel')->setText('Došlo k chybě, bohužel nedošlo k editci uživatele s ID: ' . $user->id)->setType(Message::DANGER));
+                    FlashMessage::add((new Message())->setHeader('Chyba pri vytváření uživatele')->setText('Došlo k chybě, bohužel nedošlo k vytvoření uživatele')->setType(Message::DANGER));
                 }
                 break;
         }
         $this->redirect('users');
     }
     
-    private function validData(&$data)
+    private function validData(&$data, $typ)
     {
+        
+        
         $req = ['firstname', 'lastname', 'email', 'tel', 'permission', 'password'];
         
-      $valid = true;
-        foreach ($req as $key){
-            if(!in_array($key, $data)){
-                SessionManager::setErrorForm($key);
-                $valid =false;
-            } elseif (empty($data[$key])){
-                SessionManager::setErrorForm($key);
-                $valid =false;
-            } else{
+        $valid = true;
+        foreach ($req as $key) {
+            if (!isset($data[$key])) {
+                
+                $valid = false;
+            } elseif (empty($data[$key])) {
+                $valid = false;
+            } else {
+                if ($key !== 'password') {
+                    SessionManager::setErrorForm($key, $data[$key]);
+                } elseif($key !== 'email'){
+                    if ((new UserService())->getByEmail($data['email'])) {
+                        FlashMessage::add((new Message())->setHeader('Email')->setText('Bohuže zadaný email evidujeme již u jiného uživatele.')->setType(Message::DANGER));
+                        $valid = false;
+                    }
+                }
                 $data[$key] = htmlspecialchars(trim($data[$key]));
             }
         }
-        if(!$valid){
+        if (!$valid) {
             return false;
         }
-        if (!filter_var(gethostbyname($data['email']), FILTER_VALIDATE_IP)) {
-            SessionManager::setErrorForm('email', $data['email'] );
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            SessionManager::setErrorForm('email', $data['email']);
+            return false;
         }
         
         return true;

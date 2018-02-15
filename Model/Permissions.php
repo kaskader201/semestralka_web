@@ -23,7 +23,7 @@ class Permissions
         // foreach ($result as $)
         return $result;
     }
-    public static function getPermission($userPermission){
+    public static function getPermission($userPermission):int{
         return Db::queryOne('SELECT value FROM PERMISSION WHERE id = ?', array($userPermission))[0];
     }
     public static function translatePermission(int $permission): string

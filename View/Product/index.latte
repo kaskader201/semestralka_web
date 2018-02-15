@@ -1,6 +1,9 @@
 <h2>Přehled Produktů</h2>
 <br>
-<a href="products/new" class="btn btn-success rounded-0">Přidat novou položku</a>
+{if Permissions::checkPermission(Permissions::getPermission(3),SessionManager::getUserPermisson())}
+    <a href="products/new" class="btn btn-success rounded-0">Přidat novou položku</a>
+{/if}
+
 <hr>
 <div class="table-responsive">
     <table class="table table-striped display nowrap" id="dataTable">
@@ -8,54 +11,34 @@
         <tr class="align-middle">
             <th>ID</th>
             <th>Název</th>
-            <th>Popis</th>
-            <th>Stav</th>
-            <th>Operace</th>
+            <th>Cena</th>
+            {if Permissions::checkPermission(Permissions::getPermission(3),SessionManager::getUserPermisson())}
+                <th class="text-right">Operace</th>
+            {/if}
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1,001</td>
-            <td>Lorem</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>20</td>
-            <td><a href="change" class="btn btn-warning rounded-0">Upravit</a><a href="delete#" class="btn btn-danger rounded-0">Odstranit</a> </td>
-        </tr>
-        <tr>
-            <td>1,002</td>
-            <td>amet</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>20</td>
-            <td><a href="edit" class="btn btn-warning rounded-0">Upravit</a><a href="delete#" class="btn btn-danger rounded-0">Odstranit</a> </td>
-        </tr>
-        <tr>
-            <td>1,003</td>
-            <td>Integer</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>20</td>
-            <td><a href="/edit" class="btn btn-warning rounded-0">Upravit</a><a href="delete#" class="btn btn-danger rounded-0">Odstranit</a> </td>
-        </tr>
-        <tr>
-            <td>1,003</td>
-            <td>libero</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>20</td>
-            <td><a href="/edit" class="btn btn-warning rounded-0">Upravit</a><a href="delete#" class="btn btn-danger rounded-0">Odstranit</a> </td>
-        </tr>
-        <tr>
-            <td>1,004</td>
-            <td>dapibus</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>20</td>
-            <td><a href="edit" class="btn btn-warning rounded-0">Upravit</a><a href="delete#" class="btn btn-danger rounded-0">Odstranit</a> </td>
-        </tr>
-        <tr>
-            <td>1,005</td>
-            <td>Nulla</td>
-            <td>Lorem ipsum dolor sit amet</td>
-            <td>20</td>
-            <td><a href="edit" class="btn btn-warning rounded-0">Upravit</a><a href="delete#" class="btn btn-danger rounded-0">Odstranit</a> </td>
-        </tr>
+        {foreach $products as $product}
+            <tr>
+                <td class="align-middle">{$product->getId()}</td>
+                <td class="align-middle">{$product->getName()}</td>
+                <td class="align-middle">{$product->getPrice()}</td>
+                {if Permissions::checkPermission(Permissions::getPermission(3),SessionManager::getUserPermisson())}
+                    <td class="align-middle text-right">
+                        <form action="products/delete" method="post" class="d-print-none">
+                            <a href="products/edit/{$product->getId()}" class="btn btn-warning rounded-0 text-white"><i
+                                        class="fa fa-pencil" aria-hidden="true"></i> EDITOVAT</a>
+                            <input type="hidden" name="id" value="{$product->getId()}">
+                            <button type="submit" data-id="{$product->getId()}"
+                                    class="btn btn-danger rounded-0 text-white deleteProduct"><i class="fa fa-trash-o"
+                                                                                                 aria-hidden="true"></i>
+                                SMAZAT
+                            </button>
+                        </form>
+                    </td>
+                {/if}
+            </tr>
+        {/foreach}
         </tbody>
     </table>
 </div>

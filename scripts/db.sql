@@ -61,3 +61,10 @@ INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_
   (6, 'Produkty', 'products', '1', '3', NULL);
 
 INSERT INTO `MENU` ( `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES ('Ajax', 'ajax', '2', '0', NULL, '0');
+INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES (NULL, 'error-404', 'error-404', '1', '998', NULL, '0');
+
+CREATE TABLE PRODUCTS (
+  id    INT(6) AUTO_INCREMENT PRIMARY KEY,
+  name  VARCHAR(200) NOT NULL,
+  price FLOAT(6)       NOT NULL
+);
