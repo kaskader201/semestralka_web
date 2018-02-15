@@ -1,13 +1,18 @@
 <?php
-
-
-class IndexController extends Controller
-{
-    public function controlProcess(array $urlParameters)
+namespace Semestralka {
+    /**
+     * Hlavní strana
+     * Class IndexController
+     * @package Semestralka
+     */
+    class IndexController extends Controller
     {
-        $this->setAdditionallyJS(['dataTable.js']);
-        $this->setAdditionallyCSS(['jquery.dataTables.min.css']);
-        $this->view = 'index';
+        public function controlProcess(array $urlParameters)
+        {
+            $this->setAdditionallyJS(['dataTable.js']);
+            $this->setAdditionallyCSS(['jquery.dataTables.min.css']);
+            $this->view = 'index';
+        }
+        
     }
-    
 }

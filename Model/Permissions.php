@@ -1,42 +1,48 @@
 <?php
 
-/**
- * Class Permissions
- *
- */
-class Permissions
-{
+namespace Semestralka {
     /**
-     * Vraci jestli daný uživatel má práva na danou akci
-     * @param int $user
-     * @param int $permission
-     * @return bool
+     * Class Permissions
+     * @package Semestralka
      */
-    public static function checkPermission(int $permission, int $user): bool
+    class Permissions
     {
-        return $user >= $permission;
-    }
-    
-    public static function getAllPermision(): array
-    {
-        $result = Db::queryAll('SELECT * FROM PERMISSION');
-        // foreach ($result as $)
-        return $result;
-    }
-    public static function getPermission($userPermission):int{
-        return Db::queryOne('SELECT value FROM PERMISSION WHERE id = ?', array($userPermission))[0];
-    }
-    public static function translatePermission(int $permission): string
-    {
-        return Db::queryOne('SELECT name FROM PERMISSION WHERE id = ?', array($permission))[0];
-    }
-    
-    public static function getPermissionForCategory(string $name): int {
-        $name = strtolower($name);
-        $data = Db::queryOne('SELECT min_permisssion FROM MENU WHERE url = ?',array($name))[0];
-        if($data === null){
-            $data = 999;
+        /**
+         * Vraci jestli daný uživatel má práva na danou akci
+         * @param int $user
+         * @param int $permission
+         * @return bool
+         */
+        public static function checkPermission(int $permission, int $user): bool
+        {
+            return $user >= $permission;
         }
-        return $data;
+        
+        public static function getAllPermision(): array
+        {
+            $result = Db::queryAll('SELECT * FROM PERMISSION');
+            // foreach ($result as $)
+            return $result;
+        }
+        
+        public static function getPermission($userPermission): int
+        {
+            return Db::queryOne('SELECT value FROM PERMISSION WHERE id = ?', array($userPermission))[0];
+        }
+        
+        public static function translatePermission(int $permission): string
+        {
+            return Db::queryOne('SELECT name FROM PERMISSION WHERE id = ?', array($permission))[0];
+        }
+        
+        public static function getPermissionForCategory(string $name): int
+        {
+            $name = strtolower($name);
+            $data = Db::queryOne('SELECT min_permisssion FROM MENU WHERE url = ?', array($name))[0];
+            if ($data === null) {
+                $data = 999;
+            }
+            return $data;
+        }
     }
 }
