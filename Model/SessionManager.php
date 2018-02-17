@@ -28,7 +28,7 @@ class SessionManager
      */
     public static function getUserPermisson(): int
     {
-        return ($_SESSION[self::USER][self::PERMISSON] ?? 1);
+        return (isset($_SESSION[self::USER][self::PERMISSON]) ? $_SESSION[self::USER][self::PERMISSON] : 0);
     }
     
     /**

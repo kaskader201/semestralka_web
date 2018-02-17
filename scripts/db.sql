@@ -53,15 +53,15 @@ CREATE TABLE MENU (
 ALTER TABLE `MENU` ADD `visible` TINYINT(1) NOT NULL DEFAULT '1' AFTER `parent_menu_id`;
 
 INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
-  (1, 'Hlavní strana', '', 1, 1, NULL),
+  (1, 'Hlavní strana', '', 0, 1, NULL),
   (2, 'Uživatelé', 'users', 31, 2, NULL),
   (3, 'Vytvoření nového uživatele', 'new', 31, 1, 2),
   (4, 'Přehled všech uživatelů', '', 31, 0, 2),
-  (5, 'Login', 'login', '1', '999', NULL),
+  (5, 'Login', 'login', '0', '999', NULL),
   (6, 'Produkty', 'products', '1', '3', NULL);
 
-INSERT INTO `MENU` ( `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES ('Ajax', 'ajax', '2', '0', NULL, '0');
-INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES (NULL, 'error-404', 'error-404', '1', '998', NULL, '0');
+INSERT INTO `MENU` (`text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES ('Ajax', 'ajax', '2', '0', NULL, '0');
+INSERT INTO `MENU` (`text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`, `visible`) VALUES ('error-404', 'error-404', '0', '998', NULL, '0');
 
 CREATE TABLE PRODUCTS (
   id    INT(6) AUTO_INCREMENT PRIMARY KEY,

@@ -28,7 +28,7 @@ class RouterController extends Controller
         
         $result = explode('/', $url['path']);
         //pouze kvuli struktuře složek
-        if ($result[0] == '~jelinda6') {
+        if ($result[0] == '~jelinda6' || $result[0] == '%7Ejelinda6') {
             unset($result[0]);
             $result = array_values($result);
         }
