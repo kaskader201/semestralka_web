@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class User
+ * Objekt uživatel
+ */
 class User implements iUser
 {
     /**
@@ -267,6 +271,10 @@ class User implements iUser
         return $this->userService->save($user);
     }
     
+    /**
+     * Vrací jmeno a příjmení uživatele
+     * @return string
+     */
     public function __toString()
     {
         return sprintf('%s %s', $this->getFirstname(), $this->getLastname());

@@ -9,16 +9,27 @@
         <li>Druhý účet s editorskýmí právy: email: t2@t.cz heslo: 123456789</li>
         <li>Poprosím vás o vytvoření účtu s Guest právy a příhlášení na něj</li>
         <li>Generovaná dokumentace je na <a href="output/" target="_blank">zde</a> </li>
+        <li>Okomentovaná tabulka na hodnocení <a href="https://docs.google.com/spreadsheets/d/1s9VUWL4nBZsAbuyhblSe4gfSjcMPHgeqWnNIpCRVCsg/edit?usp=sharing" target="_blank">zde</a> </li>
 
     </ol>
+<h3>Zabezpečení + ochrany proti útokům</h3>
+<ul>
+    <li>XSS</li>
+    <li>CSRF (ne všude)</li>
+    <li>Hesla hešhovana pomoci Bcrypt + sůl</li>
+    <li>Nastavná práva na akce</li>
+</ul>
 <p>Jedná so jednoduchý systém na evidenci uživatelu a zboží.</p>
 <h3>Akceptační podmínky</h3>
 <ul>
     <li>Funkční práce s uživately pro admina (pridávání, mazání, editace)</li>
-    <li>Prihlášený Host vydí seznam produktu a nemůže s nimi nic dělat.</li>
+    <li>Prihlášený Host vidí seznam produktu a nemůže s nimi nic dělat.</li>
     <li>Přihlášený Editor může manipulovat s Produkty</li>
     <li>Lze přidat nový produkt</li>
     <li>Editace produktu až v další vlně</li>
 </ul>
-
-
+<h3>Podmínky pro spuštění</h3>
+<ul>
+    <li>PHP 7</li>
+    <li>Composer</li>
+</ul>

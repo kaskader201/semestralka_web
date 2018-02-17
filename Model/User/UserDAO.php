@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * Class UserDAO
+ * Stará se o konkrétní práci s uživatelem na úrovni databáze
+ */
 class UserDAO
 {
+    /**
+     * Smaž uživatele
+     * @param User $user
+     * @return bool|int
+     */
     public function delete(User $user)
     {
         if ($user->getId() !== null) {

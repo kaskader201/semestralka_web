@@ -4,7 +4,7 @@ $(".deleteUser").click(function (e) {
     var that = $(this);
     var idUser = $(this).data('id');
     var nameUser = $(this).data('name');
-    var url = "/ajax/deleteUser";
+    var url = "ajax/deleteUser";
     var postedData = {"id": idUser};
     $.confirm({
         title: 'Odstranění uživatele',
@@ -38,4 +38,5 @@ $(".deleteUser").click(function (e) {
             }
         }
     });
+    return false;
 });

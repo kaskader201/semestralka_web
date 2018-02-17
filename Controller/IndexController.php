@@ -10,6 +10,7 @@ class IndexController extends Controller
     {
         $this->setAdditionallyJS(['dataTable.js']);
         $this->setAdditionallyCSS(['jquery.dataTables.min.css']);
+        
         $this->view = 'index';
     }
     

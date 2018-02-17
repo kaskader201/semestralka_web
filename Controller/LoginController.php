@@ -40,8 +40,10 @@ class LoginController extends Controller
             $this->view = 'Login/index';
         } else {
             if ($urlParameters[0] == 'out' && SessionManager::isLogin()) {
-                SessionManager::logOut();
+                
+                Logger::log()->notice(__METHOD__ . ' IP:' . $_SERVER['REMOTE_ADDR'] .' Odhlášení: '. SessionManager::getUserName(). ' Email: '.SessionManager::getUserEmail());
                 FlashMessage::add((new Message())->setHeader('Byl jste úspěšně odhlášen')->setText('Byl jste úspěšně odhlášen')->setType(Message::SUCCESS));
+                SessionManager::logOut();
             }
             $this->redirect();
         }

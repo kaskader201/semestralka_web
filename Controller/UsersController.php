@@ -32,7 +32,14 @@ class UsersController extends Controller
                 if ($urlParameters[0] === 'new') {
                     $this->showCreateNewUser();
                 } elseif ($urlParameters[0] === 'delete') {
-                    die('delete');
+                    if(is_numeric($_POST['id']) && $this->userService->deleteById((int)$_POST['id'])){
+                        FlashMessage::add((new Message())->setHeader('Úspěšně byl odstraněn uživatel')->setText('Byl odstraněn uživatel s ID: ' . (int)$_POST['id'])->setType(Message::SUCCESS));
+                    } else{
+                        FlashMessage::add((new Message())->setHeader('Odstranění uživatele se nezdařilo')->setText('Nezdařilo se odstranění uživatele.')->setType(Message::DANGER));
+    
+                    }
+                    $this->redirect('users');
+                    
                 } else {
                     $this->redirect('users');
                 }
@@ -136,7 +143,11 @@ class UsersController extends Controller
     {
         
         
-        $req = ['firstname', 'lastname', 'email', 'tel', 'permission', 'password'];
+       if((string)$typ === (string)$this->allowSave[0]){
+           $req = ['firstname', 'lastname', 'email', 'tel', 'permission'];
+       } else {
+           $req = ['firstname', 'lastname', 'email', 'tel', 'permission','password'];
+       }
         
         $valid = true;
         foreach ($req as $key) {
@@ -154,7 +165,7 @@ class UsersController extends Controller
                         $valid = false;
                     }
                 }
-                $data[$key] = htmlspecialchars(trim($data[$key]));
+                $data[$key] = trim($data[$key]);
             }
         }
         if (!$valid) {
@@ -164,7 +175,7 @@ class UsersController extends Controller
             SessionManager::setErrorForm('email', $data['email']);
             return false;
         }
-        
+        SessionManager::deleteErrorForm();
         return true;
         
     }

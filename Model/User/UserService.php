@@ -1,19 +1,27 @@
 <?php
 
-
+/**
+ * Stará se o přípravu dat pro DAO
+ * Class UserService
+ */
 class UserService
 {
     /**
+     * Instance User DAO
      * @var UserDAO
      */
     private $userDAO;
     
+    /**
+     * UserService constructor.
+     */
     public function __construct()
     {
         $this->userDAO = new UserDAO();
     }
     
     /**
+     * Ukládání uživatele do db (insert|ubdate)
      * @param User $user
      * @return int|mixed
      */
@@ -22,16 +30,31 @@ class UserService
         return $this->userDAO->save($user);
     }
     
-    public function deleteById($userId)
+    /**
+     * Smaže konrétného uživatele
+     * @param $userId
+     * @return int
+     */
+    public function deleteById($userId) :int
     {
         return $this->userDAO->deleteById($userId);
     }
     
+    /**
+     * Maže uživatele podle celého  objektu
+     * @param User $user
+     * @return bool|int
+     */
     public function delete(User $user)
     {
         return $this->userDAO->delete($user);
     }
     
+    /**
+     * Vrací konkrétního uživatele podle jeho ID
+     * @param int $userId
+     * @return bool|User
+     */
     public function getById(int $userId)
     {
         $user = $this->userDAO->getById($userId);
@@ -41,6 +64,11 @@ class UserService
         return false;
     }
     
+    /**
+     * Vrací konkrétního uživatele podle emailu
+     * @param string $userEmail
+     * @return bool|User
+     */
     public function getByEmail(string $userEmail)
     {
         $user = $this->userDAO->getByEmail($userEmail);
@@ -50,6 +78,10 @@ class UserService
         return false;
     }
     
+    /**
+     * Vrátí všechny uživatele
+     * @return array
+     */
     public function getAllUsers()
     {
         $users = [];
@@ -63,6 +95,11 @@ class UserService
         return $users;
     }
     
+    /**
+     * Setuje získaná data do objektu User
+     * @param array $dbUser
+     * @return User
+     */
     private function setUserData(array $dbUser)
     {
         return (new User())
