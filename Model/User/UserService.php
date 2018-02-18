@@ -112,6 +112,7 @@ class UserService
             ->setToken($dbUser['token'])
             ->setFirstname($dbUser['firstname'])
             ->setVerified((bool) $dbUser['verified'])
-            ->setLastname($dbUser['lastname']);
+            ->setLastname($dbUser['lastname'])
+            ->setNickname($dbUser['nickname']);
     }
 }

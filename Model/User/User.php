@@ -43,6 +43,10 @@ class User implements iUser
      */
     public $lastname;
     /**
+     * @string
+     */
+    public $nickname;
+    /**
      * @bool
      */
     public $verified;
@@ -201,6 +205,22 @@ class User implements iUser
     public function setFirstname(string $firstname): User
     {
         $this->firstname = $firstname;
+        return $this;
+    }
+    /**
+     * @return string
+     */
+    public function getNickname(): string
+    {
+        return $this->nickname;
+    }
+    /**
+     * @param string $nickname
+     * @return User
+     */
+    public function setNickname(string $nickname): User
+    {
+        $this->nickname = $nickname;
         return $this;
     }
     

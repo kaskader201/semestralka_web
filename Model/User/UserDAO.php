@@ -42,6 +42,7 @@ class UserDAO
             'permission' => $user->getPermission(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
+            'nickname' => $user->getNickname(),
             'verified' => $user->isVerified(),
             'active' => $user->isActive()
         ];
