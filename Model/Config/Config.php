@@ -17,7 +17,7 @@ Class Config implements iConfig
             self::DEV => [
                 'login' => 'root',
                 'password' => '',
-                'dbName' => 'semestralka',
+                'dbName' => 'rs_martin',
                 'dbAddress' => 'localhost',
             ],
             /*self::PRODUCTION => [
@@ -26,12 +26,12 @@ Class Config implements iConfig
                 'dbName' => 'd117164_semestr',
                 'dbAddress' => 'wm101.wedos.net',
             ],*/
-            self::PRODUCTION => [
+            /*self::PRODUCTION => [
                 'login' => 'jelinda6',
                 'password' => 'webove aplikace',
                 'dbName' => 'jelinda6',
                 'dbAddress' => 'localhost',
-            ],
+            ],*/
         
         ]
     ];

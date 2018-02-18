@@ -61,8 +61,6 @@ if ($_SERVER['SERVER_ADDR'] === '::1' || $_SERVER['SERVER_ADDR'] === '127.0.0.1'
 
 Db::connect($dataForDb->dbAddress, $dataForDb->login, $dataForDb->password, $dataForDb->dbName);
 
-
-
 //route
 $router = new RouterController();
 $router->controlProcess(array($_SERVER['REQUEST_URI']));
