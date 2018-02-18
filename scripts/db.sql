@@ -53,7 +53,7 @@ CREATE TABLE MENU (
 ALTER TABLE `MENU` ADD `visible` TINYINT(1) NOT NULL DEFAULT '1' AFTER `parent_menu_id`;
 
 INSERT INTO `MENU` (`id`, `text`, `url`, `min_permisssion`, `order_no`, `parent_menu_id`) VALUES
-  (1, 'Hlavní strana', '', 0, 1, NULL),
+  (1, 'Hlavní strana', 'index', 0, 1, NULL),
   (2, 'Uživatelé', 'users', 31, 2, NULL),
   (3, 'Vytvoření nového uživatele', 'new', 31, 1, 2),
   (4, 'Přehled všech uživatelů', '', 31, 0, 2),

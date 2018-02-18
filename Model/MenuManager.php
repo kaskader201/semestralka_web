@@ -59,7 +59,7 @@ class MenuManager
                     $menu .= $this->renderMenu($category['subcategories'], $url, true);
                    // $menu .= '</li>'.PHP_EOL;
                 } else {
-                    if (count($category['parent_menu_id']) == null) {
+                    if ($category['parent_menu_id'] == null) {
                         if ($url == 'login' && SessionManager::isLogin()) {
                             $menu .= '<li class="nav-item"><a class="nav-link" href="' . $url . '/out"><h3 class="text-white">Logout</h3></a></li>'.PHP_EOL;
                         } else {

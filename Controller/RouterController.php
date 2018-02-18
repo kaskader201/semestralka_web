@@ -27,11 +27,7 @@ class RouterController extends Controller
         $url['path'] = trim($url['path']);
         
         $result = explode('/', $url['path']);
-        //pouze kvuli struktuře složek
-        if ($result[0] == 'localhost' || $result[0] == 'localhost') {
-            unset($result[0]);
-            $result = array_values($result);
-        }
+
         return $result;
     }
     
