@@ -17,7 +17,7 @@ Class Config implements iConfig
             self::DEV => [
                 'login' => 'root',
                 'password' => '',
-                'dbName' => 'rs_martin',
+                'dbName' => 'db_martin',
                 'dbAddress' => 'localhost',
             ],
             /*self::PRODUCTION => [
