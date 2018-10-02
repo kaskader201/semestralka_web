@@ -5,7 +5,6 @@ Class Config implements iConfig
     private static $config = [
         'urlAdrress' => [
             self::DEV => 'http://localhost/',
-         //   self::PRODUCTION => 'https://jelinda6.art37.cz/'
             self::PRODUCTION => 'http://wa.toad.cz/~jelinda6/'
         ],
         'seo' => [
